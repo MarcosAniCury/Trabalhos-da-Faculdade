@@ -1,0 +1,6 @@
+com\jcg\hibernate\crud\operations\Bairro.class
+com\jcg\hibernate\crud\operations\Regional.class
+com\jcg\hibernate\crud\operations\Evento.class
+com\jcg\hibernate\crud\operations\TesteAgenda.class
+com\jcg\hibernate\crud\operations\DbOperations.class
+com\jcg\hibernate\crud\operations\TelaContato.class
