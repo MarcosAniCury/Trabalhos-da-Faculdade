@@ -21,12 +21,12 @@ import javax.swing.JTextField;
 
 public class TelaContato
 {
-    private String nomeDoEvento, data, hora, logradouro, numero;
+    private String nomeDoEvento, data, hora, logradouro, numero, bairro, regional;
     private JFrame janela;
-    private JPanel painelGeral, pCentro, pDisplay, pNomeDoEvento, pData, pHora, pLogradouro, pNumero, pBotoes, pMensagem;
-    private JLabel labelNomeDoEvento, labelData, labelHora, labelLogradouro, labelNumero, labelMensagem;
+    private JPanel painelGeral, pCentro, pDisplay, pNomeDoEvento, pData, pHora, pLogradouro, pNumero, pBairro, pRegional, pBotoes, pMensagem;
+    private JLabel labelNomeDoEvento, labelData, labelHora, labelLogradouro, labelNumero, labelBairro, labelRegional, labelMensagem;
     private JButton botCriar, botObterNome, botSalvar, botAlterar, botLimparAluno, botLimpar;
-    private JTextField tfNomeDoEvento, tfData, tfHora, tfLogradouro, tfNumero, tfMensagem;
+    private JTextField tfNomeDoEvento, tfData, tfHora, tfLogradouro, tfNumero, tfBairro, tfRegional, tfMensagem;
 //    private ControladorAlunoSerializado controlador = ControladorAlunoSerializado.getControladorAlunoSerializado();
 
     public TelaContato()
@@ -35,13 +35,15 @@ public class TelaContato
 
         painelGeral = new JPanel(new BorderLayout());
         pCentro = new JPanel(new BorderLayout());
-        pDisplay = new JPanel(new GridLayout(6,1));
+        pDisplay = new JPanel(new GridLayout(8,1));
 
         pNomeDoEvento = new JPanel();
         pData = new JPanel();
         pHora = new JPanel();
         pLogradouro = new JPanel();
         pNumero = new JPanel();
+        pBairro = new JPanel();
+        pRegional = new JPanel();
         pMensagem = new JPanel();
 
         pNomeDoEvento.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -49,6 +51,8 @@ public class TelaContato
         pHora.setLayout(new FlowLayout(FlowLayout.LEFT));
         pLogradouro.setLayout(new FlowLayout(FlowLayout.LEFT));
         pNumero.setLayout(new FlowLayout(FlowLayout.LEFT));
+        pBairro.setLayout(new FlowLayout(FlowLayout.LEFT));
+        pRegional.setLayout(new FlowLayout(FlowLayout.LEFT));
         pMensagem.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         pDisplay.add(pNomeDoEvento);
@@ -56,12 +60,17 @@ public class TelaContato
         pDisplay.add(pHora);
         pDisplay.add(pLogradouro);
         pDisplay.add(pNumero);
+        pDisplay.add(pBairro);
+        pDisplay.add(pRegional);
+        pDisplay.add(pNumero);
 
         labelNomeDoEvento = new JLabel("Nome do Evento: ");
         labelData = new JLabel("Data: ");
         labelHora = new JLabel("Hora: ");
         labelLogradouro = new JLabel("Logradouro (Endereco): ");
-        labelNumero = new JLabel("Data de Nascimento: ");
+        labelNumero = new JLabel("Número: ");
+        labelBairro = new JLabel("Bairro: ");
+        labelRegional = new JLabel("Regional: ");
         labelMensagem = new JLabel("Mensagem: ");
 
         pNomeDoEvento.add(labelNomeDoEvento);
@@ -71,6 +80,7 @@ public class TelaContato
 
         pData.add(labelData);
         tfData = new JTextField(30);
+        tfData.addKeyListener(new OuvinteTfDataNasc());
         pData.add(tfData);
 
         pHora.add(labelHora);
@@ -83,8 +93,15 @@ public class TelaContato
 
         pNumero.add(labelNumero);
         tfNumero = new JTextField(10);
-//        tfDataNasc.addKeyListener(new OuvinteTfDataNasc());
         pNumero.add(tfNumero);
+
+        pBairro.add(labelBairro);
+        tfBairro = new JTextField(50);
+        pBairro.add(tfBairro);
+
+        pRegional.add(labelRegional);
+        tfRegional = new JTextField(50);
+        pRegional.add(tfRegional);
 
         pBotoes = new JPanel();
         botCriar = new JButton("Criar Aluno");
@@ -157,21 +174,21 @@ public class TelaContato
         @Override
         public void keyTyped(KeyEvent ev)
         {
-            StringBuffer tfDataNascMask = new StringBuffer(tfData.getText());
-            if (tfDataNascMask.length() > posPrimeiraBarra &&
-                    tfDataNascMask.charAt(posPrimeiraBarra) != '/') {
-                tfDataNascMask.insert(posPrimeiraBarra, '/');
+            StringBuffer tfDataMask = new StringBuffer(tfData.getText());
+            if (tfDataMask.length() > posPrimeiraBarra &&
+                    tfDataMask.charAt(posPrimeiraBarra) != '/') {
+                tfDataMask.insert(posPrimeiraBarra, '/');
             }
 
-            if (tfDataNascMask.length() > posSegundaBarra &&
-                    tfDataNascMask.charAt(posSegundaBarra) != '/') {
-                tfDataNascMask.insert(posSegundaBarra, '/');
+            if (tfDataMask.length() > posSegundaBarra &&
+                    tfDataMask.charAt(posSegundaBarra) != '/') {
+                tfDataMask.insert(posSegundaBarra, '/');
             }
 
-            if (tfDataNascMask.length() > tamMax-1) {
+            if (tfDataMask.length() > tamMax-1) {
                 ev.consume();
             }
-            tfData.setText(tfDataNascMask.toString());
+            tfData.setText(tfDataMask.toString());
         }
     }
 
