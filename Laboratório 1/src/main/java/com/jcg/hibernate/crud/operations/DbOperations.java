@@ -33,40 +33,46 @@ public class DbOperations {
 	}
 
 	// Method 1: This Method Used To Create A New Student Record In The Database Table
-//	public static void createRecord() {
-//		int count = 0;
-//		Evento eventoObj = null;
-//		try {
-//			// Getting Session Object From SessionFactory
-//			sessionObj = buildSessionFactory().openSession();
-//			// Getting Transaction Object From Session Object
-//			sessionObj.beginTransaction();
-//
-//			// Creating Transaction Entities
-//			for(int j = 101; j <= 105; j++) {
-//				count = count + 1;
-//				eventoObj = new Evento();
-//				eventoObj.setEndereco("RUA XXXXX, 999");
-//				eventoObj.setNome("aluno " + j);
-//				eventoObj.setTelefone("(31)9999-8877");
-//				sessionObj.save(eventoObj);
-//			}
-//
-//			// Committing The Transactions To The Database
-//			sessionObj.getTransaction().commit();
-//			logger.info("\nSuccessfully Created '" + count + "' Records In The Database!\n");
-//		} catch(Exception sqlException) {
-//			if(null != sessionObj.getTransaction()) {
-//				logger.info("\n.......Transaction Is Being Rolled Back.......\n");
-//				sessionObj.getTransaction().rollback();
-//			}
-//			sqlException.printStackTrace();
-//		} finally {
-//			if(sessionObj != null) {
-//				sessionObj.close();
-//			}
-//		}
-//	}
+	public static void createEvent(String nomeEvento, String data, String hora, String logradouro, String numero, String nomeBairro, String nomeRegional) {
+		Evento eventoObj = null;
+		try {
+			// Getting Session Object From SessionFactory
+			sessionObj = buildSessionFactory().openSession();
+			// Getting Transaction Object From Session Object
+			sessionObj.beginTransaction();
+
+			eventoObj = new Evento();
+			eventoObj.setNomeEvento(nomeEvento);
+			eventoObj.setData(data);
+			eventoObj.setHora(hora);
+			eventoObj.setLogradouro(logradouro);
+			eventoObj.setNumero(numero);
+
+			Bairro bairroObj = new Bairro();
+			bairroObj.setNome(nomeBairro);
+
+			Regional regional = getRegionalByName(nomeRegional);
+			bairroObj.setIdRegional(regional.getId());
+			sessionObj.save(bairroObj);
+
+			eventoObj.setIdBairro(bairroObj.getId());
+			sessionObj.save(eventoObj);
+
+			// Committing The Transactions To The Database
+			sessionObj.getTransaction().commit();
+			logger.info("\nSuccessfully Created '" + eventoObj.getId() + "' Records In The Database!\n");
+		} catch(Exception sqlException) {
+			if(null != sessionObj.getTransaction()) {
+				logger.info("\n.......Transaction Is Being Rolled Back.......\n");
+				sessionObj.getTransaction().rollback();
+			}
+			sqlException.printStackTrace();
+		} finally {
+			if(sessionObj != null) {
+				sessionObj.close();
+			}
+		}
+	}
 //
 //	// Method 2: This Method Is Used To Display The Records From The Database Table
 //	@SuppressWarnings("unchecked")
@@ -195,4 +201,25 @@ public class DbOperations {
 //			}
 //		}
 //	}
+
+	public static Regional getRegionalByName(String nomeRegional)
+	{
+		Regional findRegionalObj = null;
+		try {
+			// Getting Session Object From SessionFactory
+			sessionObj = buildSessionFactory().openSession();
+			// Getting Transaction Object From Session Object
+			sessionObj.beginTransaction();
+
+			Query query = sessionObj.createQuery("SELECT * FROM `1266642_regional` where nome ='"+nomeRegional+"'");
+			findRegionalObj = (Regional) query.uniqueResult();
+		} catch(Exception sqlException) {
+			if(null != sessionObj.getTransaction()) {
+				logger.info("\n.......Transaction Is Being Rolled Back.......\n");
+				sessionObj.getTransaction().rollback();
+			}
+			sqlException.printStackTrace();
+		}
+		return findRegionalObj;
+	}
 }

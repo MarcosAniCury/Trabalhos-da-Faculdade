@@ -19,17 +19,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class TelaContato
+public class TelaEvento
 {
     private String nomeDoEvento, data, hora, logradouro, numero, bairro, regional;
     private JFrame janela;
     private JPanel painelGeral, pCentro, pDisplay, pNomeDoEvento, pData, pHora, pLogradouro, pNumero, pBairro, pRegional, pBotoes, pMensagem;
-    private JLabel labelNomeDoEvento, labelData, labelHora, labelLogradouro, labelNumero, labelBairro, labelRegional, labelMensagem;
-    private JButton botCriar, botObterNome, botSalvar, botAlterar, botLimparAluno, botLimpar;
-    private JTextField tfNomeDoEvento, tfData, tfHora, tfLogradouro, tfNumero, tfBairro, tfRegional, tfMensagem;
-//    private ControladorAlunoSerializado controlador = ControladorAlunoSerializado.getControladorAlunoSerializado();
+    private JLabel labelNomeDoEvento, labelData, labelHora, labelLogradouro, labelNumero, labelBairro, labelRegional;
+    private JButton botCriar, botObterNome, botLimpar;
+    private JTextField tfNomeDoEvento, tfData, tfHora, tfLogradouro, tfNumero, tfBairro, tfRegional;
 
-    public TelaContato()
+    public TelaEvento()
     {
         janela = new JFrame("Cadastro e Vizualização de Evento");
 
@@ -62,7 +61,6 @@ public class TelaContato
         pDisplay.add(pNumero);
         pDisplay.add(pBairro);
         pDisplay.add(pRegional);
-        pDisplay.add(pNumero);
 
         labelNomeDoEvento = new JLabel("Nome do Evento: ");
         labelData = new JLabel("Data: ");
@@ -71,7 +69,6 @@ public class TelaContato
         labelNumero = new JLabel("Número: ");
         labelBairro = new JLabel("Bairro: ");
         labelRegional = new JLabel("Regional: ");
-        labelMensagem = new JLabel("Mensagem: ");
 
         pNomeDoEvento.add(labelNomeDoEvento);
         tfNomeDoEvento = new JTextField(10);
@@ -104,28 +101,16 @@ public class TelaContato
         pRegional.add(tfRegional);
 
         pBotoes = new JPanel();
-        botCriar = new JButton("Criar Aluno");
-//        botCriar.addActionListener(new OuvinteCriar());
+        botCriar = new JButton("Cadastrar Evento");
+        botCriar.addActionListener(new OuvinteCriar());
         pBotoes.add(botCriar);
 
-        botObterNome = new JButton("Obter dados");
+        botObterNome = new JButton("Obter Eventos");
 //        botObterNome.addActionListener(new OuvinteObterDados());
         pBotoes.add(botObterNome);
 
-        botSalvar = new JButton("Salvar dados");
-//        botSalvar.addActionListener(new OuvinteSalvar());
-        pBotoes.add(botSalvar);
-
-        botAlterar = new JButton("Alterar dados");
-//        botAlterar.addActionListener(new OuvinteAlterar());
-        pBotoes.add(botAlterar);
-
-        botLimparAluno = new JButton("Limpar aluno");
-//        botLimparAluno.addActionListener(new OuvinteLimparAluno());
-        pBotoes.add(botLimparAluno);
-
         botLimpar = new JButton("Limpar dados");
-//        botLimpar.addActionListener(new OuvinteLimpar());
+        botLimpar.addActionListener(new OuvinteLimpar());
         pBotoes.add(botLimpar);
 
         pCentro.add(pDisplay, BorderLayout.CENTER);
@@ -198,21 +183,15 @@ public class TelaContato
         @Override
         public void actionPerformed(ActionEvent aev)
         {
-//            nome = tfNome.getText();
-//            dre = tfDre.getText();
-//            telefone = tfTelefone.getText();
-//            endereco = tfEndereco.getText();
-//            dataNasc = tfDataNasc.getText();
+            nomeDoEvento = tfNomeDoEvento.getText();
+            data = tfData.getText();
+            hora = tfHora.getText();
+            logradouro = tfLogradouro.getText();
+            numero = tfNumero.getText();
+            bairro = tfBairro.getText();
+            regional = tfRegional.getText();
 
-//            try {
-//                Date dataNascTrans = stringToDate(dataNasc);
-//                controlador.criaAluno(dre, nome, telefone, endereco, dataNascTrans);
-//                tfMensagem.setText("Aluno " + nome + " criado OK, com DRE " + dre);
-//            } catch(DreDuplicadoException ex) {
-//                tfMensagem.setText("Não foi possível criar o aluno. O DRE " + dre + " já foi alocado");
-//            } catch (DataInvalidaException ex) {
-//                tfMensagem.setText("Data inserida inválida, digite novamente");
-//            }
+            DbOperations.createEvent(nomeDoEvento, data, hora, logradouro, numero, bairro, regional);
         }
     }
 
@@ -292,7 +271,13 @@ public class TelaContato
     {
         public void actionPerformed(ActionEvent aev)
         {
-//            controlador.limparDados();
+            tfNomeDoEvento.setText("");
+            tfData.setText("");
+            tfHora.setText("");
+            tfLogradouro.setText("");
+            tfNumero.setText("");
+            tfBairro.setText("");
+            tfRegional.setText("");
         }
     }
 
@@ -316,29 +301,8 @@ public class TelaContato
         }
     }
 
-//    public Date stringToDate(String dataNasc) throws DataInvalidaException
-//    {
-//        String[] data = dataNasc.split("/");
-//        Date date;
-//        try {
-//            String newDate = data[2] + '-' + data[1] + '-' + data[0];
-//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//            date = formatter.parse(newDate);
-//        } catch (Exception e) {
-//            throw new DataInvalidaException();
-//        }
-//        return date;
-//    }
-
-    public String dateToString(Date dataNasc)
-    {
-        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
-        String newDate = df.format(dataNasc);
-        return newDate;
-    }
-
     public static void main(String[] args)
     {
-        new TelaContato();
+        new TelaEvento();
     }
 }

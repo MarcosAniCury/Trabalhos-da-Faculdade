@@ -24,7 +24,7 @@ public class Bairro implements Serializable {
     private String Nome;
 
     @Column(name="id_regional")
-    private String Id_Regional;
+    private int IdRegional;
 
     public int getId() {
         return id;
@@ -42,12 +42,12 @@ public class Bairro implements Serializable {
         Nome = nome;
     }
 
-    public String getIdRegional() {
-        return Id_Regional;
+    public int getIdRegional() {
+        return IdRegional;
     }
 
-    public void setIdRegional(String id_Regional) {
-        Id_Regional = id_Regional;
+    public void setIdRegional(int id_Regional) {
+        IdRegional = id_Regional;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class Bairro implements Serializable {
         return "Bairro{" +
                 "id=" + id +
                 ", Nome='" + Nome + '\'' +
-                ", Id_Regional='" + Id_Regional + '\'' +
+                ", Id_Regional='" + IdRegional + '\'' +
                 '}';
     }
 }
