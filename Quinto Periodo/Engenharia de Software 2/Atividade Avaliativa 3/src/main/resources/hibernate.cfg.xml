@@ -19,6 +19,10 @@
 		<property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
 
 		<!-- Mapping With Model Class Containing Annotations -->
-		<mapping class="com.jcg.hibernate.crud.operations.Contato" />
+		<mapping class="com.jcg.hibernate.crud.operations.Instituicao" />
+		<mapping class="com.jcg.hibernate.crud.operations.Artigo" />
+		<mapping class="com.jcg.hibernate.crud.operations.VeiculoDePublicacao" />
+		<mapping class="com.jcg.hibernate.crud.operations.GrupoPesquisadorArtigo" />
+		<mapping class="com.jcg.hibernate.crud.operations.Pesquisador" />
 	</session-factory>
 </hibernate-configuration>

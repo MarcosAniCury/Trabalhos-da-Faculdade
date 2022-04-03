@@ -1,12 +1,14 @@
 package com.jcg.hibernate.crud.operations;
 
-import java.awt.*;
+import javafx.beans.binding.ObjectExpression;
 
+import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 public class AppMain {
 	public static void main(String [] args) {
@@ -25,7 +27,7 @@ class TelaInicial extends JFrame implements ActionListener
 	private JButton btnPesquisador;
 
 	//Telas Adversas
-	private TelaCadastroInstituicao cadastroInstituicao = new TelaCadastroInstituicao(this);
+	private TelaInstituicao cadastroInstituicao = new TelaInstituicao(this);
 	private TelaVeiculoDePublicacao cadastroVeiculoDePublicacao = new TelaVeiculoDePublicacao(this);
 	private TelaArtigo cadastroArtigo = new TelaArtigo(this);
 	private TelaPesquisador cadastroPesquisador = new TelaPesquisador(this);
@@ -89,7 +91,7 @@ class TelaInicial extends JFrame implements ActionListener
 	}
 }
 
-class TelaCadastroInstituicao extends JFrame implements ActionListener
+class TelaInstituicao extends JFrame implements ActionListener
 {
 	private JPanel contentPane;
 	private JTextField txtCodigo;
@@ -108,7 +110,7 @@ class TelaCadastroInstituicao extends JFrame implements ActionListener
 	private final String LABEL_CODIGO = "Codigo:";
 	private final String LABEL_NOME = "Nome:";
 
-	public TelaCadastroInstituicao(TelaInicial home)
+	public TelaInstituicao(TelaInicial home)
 	{
 		this.home = home;
 
@@ -163,6 +165,34 @@ class TelaCadastroInstituicao extends JFrame implements ActionListener
 			home.setVisible(true);
 		} else if (e.getActionCommand().equals(this.btnCadastrar.getActionCommand())) {
 			this.setVisible(false);
+			try {
+				bntCadastrarAction();
+				JOptionPane.showMessageDialog(null, "Instituicao "+txtNome.getText()+" cadastrado com sucesso...");
+			} catch (Exception erro){
+				erro.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Erro em cadastrar a instituicao...");
+
+				txtNome.setText("");
+				txtCodigo.setText("");
+				this.setVisible(true);
+			}
+		}
+	}
+
+	public void bntCadastrarAction() throws Exception
+	{
+		int codigo = Integer.parseInt(txtCodigo.getText());
+		String nome = txtNome.getText();
+
+		if (nome != null && nome != "") {
+			Instituicao instituicao = new Instituicao();
+			instituicao.setCodigo(codigo);
+			instituicao.setNome(nome);
+			instituicao.setNome(nome);
+
+			DbOperations.createInstituicao(instituicao);
+		} else {
+			throw new Exception("Erro ao criar objeto instituicao");
 		}
 	}
 }
@@ -172,7 +202,6 @@ class TelaVeiculoDePublicacao extends JFrame implements ActionListener
 	TelaInicial home;
 
 	private JPanel contentPane;
-	private JTextField txtCodigo;
 	private JTextField txtTitulo;
 	private JTextField txtLocal;
 
@@ -182,7 +211,6 @@ class TelaVeiculoDePublicacao extends JFrame implements ActionListener
 	//Constants
 	private final String SCREEN_TITLE = "Cadastro de Instituicao";
 	private final String BNT_VOLTAR = "Voltar";
-	private final String LABEL_CODIGO = "Codigo:";
 	private final String LABEL_TITULO = "Titulo:";
 	private final String LABEL_LOCAL = "Local:";
 	private final String BNT_CADASTRAR = "Cadastrar";
@@ -204,17 +232,6 @@ class TelaVeiculoDePublicacao extends JFrame implements ActionListener
 		btnVoltar.addActionListener(this);
 		btnVoltar.setActionCommand(BNT_VOLTAR);
 		contentPane.add(btnVoltar);
-
-		JLabel lblCodigo = new JLabel(LABEL_CODIGO);
-		lblCodigo.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
-		lblCodigo.setBounds(10, 31, 109, 14);
-		contentPane.add(lblCodigo);
-
-		txtCodigo = new JTextField();
-		txtCodigo.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
-		txtCodigo.setBounds(129, 76, 283, 20);
-		txtCodigo.setColumns(10);
-		contentPane.add(txtCodigo);
 
 		JLabel lblTitulo = new JLabel(LABEL_TITULO);
 		lblTitulo.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
@@ -252,7 +269,33 @@ class TelaVeiculoDePublicacao extends JFrame implements ActionListener
 			this.setVisible(false);
 			home.setVisible(true);
 		} else if (e.getActionCommand().equals(this.btnCadastrar.getActionCommand())) {
-			this.setVisible(false);
+			try {
+				bntCadastrarAction();
+				JOptionPane.showMessageDialog(null, "Veiculo de publicacao "+txtTitulo.getText()+" cadastrado com sucesso...");
+			} catch (Exception erro){
+				erro.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Erro em cadastrar a veiculo de publicacao...");
+
+				txtTitulo.setText("");
+				txtLocal.setText("");
+				this.setVisible(true);
+			}
+		}
+	}
+
+	public void bntCadastrarAction() throws Exception
+	{
+		String titulo = txtTitulo.getText();
+		String local = txtLocal.getText();
+
+		if (local != null && local != "" && titulo != null && titulo != "") {
+			VeiculoDePublicacao veiculoDePublicacao = new VeiculoDePublicacao();
+			veiculoDePublicacao.setTitulo(titulo);
+			veiculoDePublicacao.setLocal(local);
+
+			DbOperations.createVeiculoDePublicacao(veiculoDePublicacao);
+		} else {
+			throw new Exception("Erro ao criar objeto instituicao");
 		}
 	}
 }
@@ -329,6 +372,7 @@ class TelaArtigo extends JFrame implements ActionListener
 		cbVeiculoDePublicacao = new JComboBox();
 		cbVeiculoDePublicacao.setEditable(true);
 		cbVeiculoDePublicacao.setBounds(129, 28, 283, 20);
+		carregarVeiculoDePublicacao();
 		contentPane.add(cbVeiculoDePublicacao);
 
 		JLabel lblPaginaInicial = new JLabel(LABEL_PAGINA_INICIAL);
@@ -367,7 +411,50 @@ class TelaArtigo extends JFrame implements ActionListener
 			this.setVisible(false);
 			home.setVisible(true);
 		} else if (e.getActionCommand().equals(this.btnCadastrar.getActionCommand())) {
-			this.setVisible(false);
+			try {
+				bntCadastrarAction();
+				JOptionPane.showMessageDialog(null, "Artigo "+txtTitulo.getText()+" cadastrado com sucesso...");
+			} catch (Exception erro){
+				erro.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Erro em cadastrar o artigo...");
+
+				txtCodigo.setText("");
+				txtTitulo.setText("");
+				txtPaginaInicial.setText("");
+				txtPaginaFinal.setText("");
+				this.setVisible(true);
+			}
+		}
+	}
+
+//	public void carregarVeiculoDePublicacao()
+//	{
+//		List<VeiculoDePublicacao> veiculosDePublicacao = DbOperations.getAllVeiculoDePublicacao();
+//		cbVeiculoDePublicacao.removeAllItems();
+//		for(int i = 0;i < veiculosDePublicacao.size();i++) {
+//			cbVeiculoDePublicacao.addItem(veiculosDePublicacao.get(i).getTitulo());
+//		}
+//	}
+
+	public void bntCadastrarAction() throws Exception
+	{
+		int codigo = Integer.parseInt(txtCodigo.getText());
+		String titulo = txtTitulo.getText();
+		String paginaInicial = txtPaginaInicial.getText();
+		String paginaFinal = txtPaginaFinal.getText();
+		VeiculoDePublicacao veiculoDePublicacao = (VeiculoDePublicacao) cbVeiculoDePublicacao.getSelectedItem();
+
+		if (paginaInicial != null && paginaInicial != "" && titulo != null && titulo != "" && paginaFinal != null && paginaFinal != "" && veiculoDePublicacao != null) {
+			Artigo artigo = new Artigo();
+			artigo.setCodigo(codigo);
+			artigo.setTitulo(titulo);
+			artigo.setPaginaInicial(paginaInicial);
+			artigo.setPaginaFinal(paginaFinal);
+			artigo.setVeiculoDePublicacao(veiculoDePublicacao);
+
+			DbOperations.createArtigo(artigo);
+		} else {
+			throw new Exception("Erro ao criar objeto artigo");
 		}
 	}
 }
@@ -468,177 +555,205 @@ class TelaPesquisador extends JFrame implements ActionListener
 			this.setVisible(false);
 			home.setVisible(true);
 		} else if (e.getActionCommand().equals(this.btnCadastrar.getActionCommand())) {
-			this.setVisible(false);
+			try {
+				bntCadastrarAction();
+				JOptionPane.showMessageDialog(null, "Pesquisador "+txtNome.getText()+" cadastrado com sucesso...");
+			} catch (Exception erro){
+				erro.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Erro em cadastrar o pesquisador...");
+
+				txtCPF.setText("");
+				txtNome.setText("");
+				this.setVisible(true);
+			}
+		}
+	}
+
+	public void bntCadastrarAction() throws Exception
+	{
+		String cpf = txtCPF.getText();
+		String nome = txtNome.getText();
+		Instituicao instituicao = (Instituicao) cbInstituicao.getSelectedItem();
+
+		if (cpf != null && cpf != "" && nome != null && nome != "" && instituicao != null) {
+			Pesquisador pesquisador = new Pesquisador();
+			pesquisador.setCpf(cpf);
+			pesquisador.setNome(nome);
+			pesquisador.setInstituicao(instituicao);
+
+			DbOperations.createPesquisador(pesquisador);
+		} else {
+			throw new Exception("Erro ao criar objeto artigo");
 		}
 	}
 }
 
-class TelaContato extends JFrame implements ActionListener
-{
-
-	private JPanel contentPane;
-	private JTextField txtNome;
-	private JTextField txtEndereco;
-
-	private JTextField txtTel;
-	private String txtID;
-	private JComboBox cbPesquisar;
-	private ButtonGroup bt = new ButtonGroup();
-
-
-	private JButton btnSalvar;
-	private JButton btnExcluir;
-	private JButton btnEditar;
-	private JButton btnPesquisar;
-	private JButton btnLimpar;
-
-	public TelaContato() {
-		setTitle("Cadastro de Contatos");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 556, 413);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-
-		JLabel lblPesquisar = new JLabel("Pesquisar:");
-		lblPesquisar.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
-		lblPesquisar.setBounds(10, 31, 109, 14);
-		contentPane.add(lblPesquisar);
-
-		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
-		lblNome.setBounds(10, 79, 109, 14);
-		contentPane.add(lblNome);
-
-		JLabel lblEndereo = new JLabel("Endere\u00E7o:");
-		lblEndereo.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
-		lblEndereo.setBounds(10, 104, 109, 14);
-		contentPane.add(lblEndereo);
-
-		JLabel lblTel = new JLabel("Telefone:");
-		lblTel.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
-		lblTel.setBounds(10, 129, 109, 14);
-		contentPane.add(lblTel);
-
-		cbPesquisar = new JComboBox();
-		cbPesquisar.setEditable(true);
-		cbPesquisar.setBounds(129, 28, 283, 20);
-
-		contentPane.add(cbPesquisar);
-
-		txtNome = new JTextField();
-		txtNome.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
-		txtNome.setBounds(129, 76, 283, 20);
-		contentPane.add(txtNome);
-		txtNome.setColumns(10);
-
-		txtEndereco = new JTextField();
-		txtEndereco.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
-		txtEndereco.setBounds(129, 101, 365, 20);
-		contentPane.add(txtEndereco);
-		txtEndereco.setColumns(10);
-
-
-
-		try {
-			txtTel = new JTextField();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		txtTel.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
-		txtTel.setBounds(129, 126, 143, 20);
-		contentPane.add(txtTel);
-
-
-
-		btnSalvar = new JButton("Incluir");
-		btnSalvar.setBounds(193, 327, 75, 23);
-		btnSalvar.addActionListener(this);
-		btnSalvar.setActionCommand("salvar");
-		contentPane.add(btnSalvar);
-
-		btnEditar = new JButton("Editar");
-		btnEditar.setBounds(280, 327, 75, 23);
-		btnEditar.setText("Editar");
-		btnEditar.addActionListener(this);
-		btnEditar.setActionCommand("editar");
-		contentPane.add(btnEditar);
-
-		btnLimpar = new JButton("Limpar");
-		btnLimpar.setBounds(360, 327, 75, 23);
-		btnLimpar.setText("Limpar");
-		btnLimpar.addActionListener(this);
-		btnLimpar.setActionCommand("limpar");
-		contentPane.add(btnLimpar);
-
-		btnExcluir = new JButton("");
-		btnExcluir.setBounds(440, 327, 75, 23);
-		btnExcluir.setText("Excluir");
-		btnExcluir.addActionListener(this);
-		btnExcluir.setActionCommand("excluir");
-		contentPane.add(btnExcluir);
-
-		btnPesquisar = new JButton("Buscar");
-		btnPesquisar.setBounds(422, 22, 80, 23);
-		btnPesquisar.addActionListener(this);
-		btnPesquisar.setActionCommand("pesquisar");
-		contentPane.add(btnPesquisar);
-		txtID = "";
-		this.carregaLista();
-	}
-	public Contato montaContato(){
-		//Pega os dados digitados nos campos do formulário e atribui ao objeto da classe Contato;
-		Contato c = new Contato();
-		c.setNome(this.txtNome.getText());
-		c.setEndereco(this.txtEndereco.getText());
-		c.setTelefone(this.txtTel.getText());
-		return c;
-	}
-	public Contato editaContato(int i){
-		//Pega os dados digitados nos campos do formulário e atribui ao objeto da classe Contato;
-		Contato c = new Contato();
-		c.setId(i);
-		c.setNome(this.txtNome.getText());
-		c.setEndereco(this.txtEndereco.getText());
-		c.setTelefone(this.txtTel.getText());
-		return c;
-	}
-	public void carregaContatonaTela(Contato c2){
-		//Pega os dados digitados nos campos do formulário e atribui ao objeto da classe Contato;
-//		this.txtNome.setText(c2.getNome());
-		this.txtEndereco.setText(c2.getEndereco());
-		this.txtTel.setText(c2.getTelefone());
-
-	}
-
-	public void limpaTela(){
-		for(int i = 0; i < contentPane.getComponentCount(); i++){
-			//laço de repetição percorrendo o contentPane - JPanel, o painel principal do form
-			Component c = contentPane.getComponent(i);
-			//Cria um objeto Component c que recebe o componente na posição i do laço for
-			if(c instanceof JTextField){ //se o componente c for uma instância de JTextField
-				JTextField campo = (JTextField) c;
-				//cria uma variável JTextField recebendo o componente c com um cast
-				campo.setText(null);
-				//apaga o conteúdo do campo JTextField;
-			}
-		}
-
-	}
-	public void carregaLista(){
-		//Preenche Combobox com registros do banco de dados
-//		controle.ContatoCT mbc = new ContatoCT();
+//class TelaContato extends JFrame implements ActionListener
+//{
 //
-//		List<Contato> ContatoBd = mbc.getContatos();
-//		cbPesquisar.removeAllItems();
-//		for (Contato contato : ContatoBd) {
-//			cbPesquisar.addItem(contato.getNome());
+//	private JPanel contentPane;
+//	private JTextField txtNome;
+//	private JTextField txtEndereco;
+//
+//	private JTextField txtTel;
+//	private String txtID;
+//	private JComboBox cbPesquisar;
+//	private ButtonGroup bt = new ButtonGroup();
+//
+//
+//	private JButton btnSalvar;
+//	private JButton btnExcluir;
+//	private JButton btnEditar;
+//	private JButton btnPesquisar;
+//	private JButton btnLimpar;
+//
+//	public TelaContato() {
+//		setTitle("Cadastro de Contatos");
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		setBounds(100, 100, 556, 413);
+//		contentPane = new JPanel();
+//		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+//		setContentPane(contentPane);
+//		contentPane.setLayout(null);
+//
+//		JLabel lblPesquisar = new JLabel("Pesquisar:");
+//		lblPesquisar.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+//		lblPesquisar.setBounds(10, 31, 109, 14);
+//		contentPane.add(lblPesquisar);
+//
+//		JLabel lblNome = new JLabel("Nome:");
+//		lblNome.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+//		lblNome.setBounds(10, 79, 109, 14);
+//		contentPane.add(lblNome);
+//
+//		JLabel lblEndereo = new JLabel("Endere\u00E7o:");
+//		lblEndereo.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+//		lblEndereo.setBounds(10, 104, 109, 14);
+//		contentPane.add(lblEndereo);
+//
+//		JLabel lblTel = new JLabel("Telefone:");
+//		lblTel.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+//		lblTel.setBounds(10, 129, 109, 14);
+//		contentPane.add(lblTel);
+//
+//		cbPesquisar = new JComboBox();
+//		cbPesquisar.setEditable(true);
+//		cbPesquisar.setBounds(129, 28, 283, 20);
+//
+//		contentPane.add(cbPesquisar);
+//
+//		txtNome = new JTextField();
+//		txtNome.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+//		txtNome.setBounds(129, 76, 283, 20);
+//		contentPane.add(txtNome);
+//		txtNome.setColumns(10);
+//
+//		txtEndereco = new JTextField();
+//		txtEndereco.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+//		txtEndereco.setBounds(129, 101, 365, 20);
+//		contentPane.add(txtEndereco);
+//		txtEndereco.setColumns(10);
+//
+//
+//
+//		try {
+//			txtTel = new JTextField();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
 //		}
-	}
-
-	public void actionPerformed(ActionEvent e) {
+//		txtTel.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+//		txtTel.setBounds(129, 126, 143, 20);
+//		contentPane.add(txtTel);
+//
+//
+//
+//		btnSalvar = new JButton("Incluir");
+//		btnSalvar.setBounds(193, 327, 75, 23);
+//		btnSalvar.addActionListener(this);
+//		btnSalvar.setActionCommand("salvar");
+//		contentPane.add(btnSalvar);
+//
+//		btnEditar = new JButton("Editar");
+//		btnEditar.setBounds(280, 327, 75, 23);
+//		btnEditar.setText("Editar");
+//		btnEditar.addActionListener(this);
+//		btnEditar.setActionCommand("editar");
+//		contentPane.add(btnEditar);
+//
+//		btnLimpar = new JButton("Limpar");
+//		btnLimpar.setBounds(360, 327, 75, 23);
+//		btnLimpar.setText("Limpar");
+//		btnLimpar.addActionListener(this);
+//		btnLimpar.setActionCommand("limpar");
+//		contentPane.add(btnLimpar);
+//
+//		btnExcluir = new JButton("");
+//		btnExcluir.setBounds(440, 327, 75, 23);
+//		btnExcluir.setText("Excluir");
+//		btnExcluir.addActionListener(this);
+//		btnExcluir.setActionCommand("excluir");
+//		contentPane.add(btnExcluir);
+//
+//		btnPesquisar = new JButton("Buscar");
+//		btnPesquisar.setBounds(422, 22, 80, 23);
+//		btnPesquisar.addActionListener(this);
+//		btnPesquisar.setActionCommand("pesquisar");
+//		contentPane.add(btnPesquisar);
+//		txtID = "";
+//		this.carregaLista();
+//	}
+//	public Contato montaContato(){
+//		//Pega os dados digitados nos campos do formulário e atribui ao objeto da classe Contato;
+//		Contato c = new Contato();
+//		c.setNome(this.txtNome.getText());
+//		c.setEndereco(this.txtEndereco.getText());
+//		c.setTelefone(this.txtTel.getText());
+//		return c;
+//	}
+//	public Contato editaContato(int i){
+//		//Pega os dados digitados nos campos do formulário e atribui ao objeto da classe Contato;
+//		Contato c = new Contato();
+//		c.setId(i);
+//		c.setNome(this.txtNome.getText());
+//		c.setEndereco(this.txtEndereco.getText());
+//		c.setTelefone(this.txtTel.getText());
+//		return c;
+//	}
+//	public void carregaContatonaTela(Contato c2){
+//		//Pega os dados digitados nos campos do formulário e atribui ao objeto da classe Contato;
+////		this.txtNome.setText(c2.getNome());
+//		this.txtEndereco.setText(c2.getEndereco());
+//		this.txtTel.setText(c2.getTelefone());
+//
+//	}
+//
+//	public void limpaTela(){
+//		for(int i = 0; i < contentPane.getComponentCount(); i++){
+//			//laço de repetição percorrendo o contentPane - JPanel, o painel principal do form
+//			Component c = contentPane.getComponent(i);
+//			//Cria um objeto Component c que recebe o componente na posição i do laço for
+//			if(c instanceof JTextField){ //se o componente c for uma instância de JTextField
+//				JTextField campo = (JTextField) c;
+//				//cria uma variável JTextField recebendo o componente c com um cast
+//				campo.setText(null);
+//				//apaga o conteúdo do campo JTextField;
+//			}
+//		}
+//
+//	}
+//	public void carregaLista(){
+//		//Preenche Combobox com registros do banco de dados
+////		controle.ContatoCT mbc = new ContatoCT();
+////
+////		List<Contato> ContatoBd = mbc.getContatos();
+////		cbPesquisar.removeAllItems();
+////		for (Contato contato : ContatoBd) {
+////			cbPesquisar.addItem(contato.getNome());
+////		}
+//	}
+//
+//	public void actionPerformed(ActionEvent e) {
 //		if(e.getActionCommand().equals(this.btnSalvar.getActionCommand())){
 //			//Condicional - se clicar no botão Salvar ...
 //			Contato c = this.montaContato();
@@ -708,5 +823,5 @@ class TelaContato extends JFrame implements ActionListener
 //		}
 
 
-	}
-}
+//	}
+//}
