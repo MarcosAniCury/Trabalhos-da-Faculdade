@@ -175,6 +175,7 @@ class TelaVeiculoDePublicacao extends JFrame implements ActionListener
 	private JTextField txtLocal;
 
 	private JButton btnVoltar;
+	private JButton btnCadastrar;
 
 	//Constants
 	private final String SCREEN_TITLE = "Cadastro de Instituicao";
@@ -182,6 +183,7 @@ class TelaVeiculoDePublicacao extends JFrame implements ActionListener
 	private final String LABEL_CODIGO = "Codigo:";
 	private final String LABEL_TITULO = "Titulo:";
 	private final String LABEL_LOCAL = "Local:";
+	private final String BNT_CADASTRAR = "Cadastrar";
 
 	TelaVeiculoDePublicacao(TelaInicial home)
 	{
@@ -233,6 +235,12 @@ class TelaVeiculoDePublicacao extends JFrame implements ActionListener
 		txtLocal.setBounds(129, 76, 283, 20);
 		txtLocal.setColumns(10);
 		contentPane.add(txtLocal);
+
+		btnCadastrar = new JButton(BNT_CADASTRAR);
+		btnCadastrar.setBounds(0, 0, 150, 23);
+		btnCadastrar.addActionListener(this);
+		btnCadastrar.setActionCommand(BNT_CADASTRAR);
+		contentPane.add(btnCadastrar);
 	}
 
 	public void actionPerformed(ActionEvent e)
@@ -241,6 +249,8 @@ class TelaVeiculoDePublicacao extends JFrame implements ActionListener
 		if(e.getActionCommand().equals(this.btnVoltar.getActionCommand())){
 			this.setVisible(false);
 			home.setVisible(true);
+		} else if (e.getActionCommand().equals(this.btnCadastrar.getActionCommand())) {
+			this.setVisible(false);
 		}
 	}
 }
@@ -250,16 +260,24 @@ class TelaArtigo extends JFrame implements ActionListener
 	TelaInicial home;
 
 	private JPanel contentPane;
+	private JTextField txtCodigo;
 	private JTextField txtTitulo;
 	private JComboBox cbVeiculoDePublicacao;
+	private JTextField txtPaginaInicial;
+	private JTextField txtPaginaFinal;
 
 	private JButton btnVoltar;
+	private JButton btnCadastrar;
 
 	//Constants
 	private final String SCREEN_TITLE = "Cadastro de Instituicao";
 	private final String BNT_VOLTAR = "Voltar";
+	private final String LABEL_CODIGO = "Codigo:";
 	private final String LABEL_TITULO = "Titulo:";
 	private final String LABEL_VEICULO_DE_PUBLICACAO = "Veiculo de publicacao:";
+	private final String LABEL_PAGINA_INICIAL = "Pagina Inicial:";
+	private final String LABEL_PAGINA_FINAL = "Pagina Final:";
+	private final String BNT_CADASTRAR = "Cadastrar";
 
 	public TelaArtigo(TelaInicial home)
 	{
@@ -278,6 +296,17 @@ class TelaArtigo extends JFrame implements ActionListener
 		btnVoltar.addActionListener(this);
 		btnVoltar.setActionCommand(BNT_VOLTAR);
 		contentPane.add(btnVoltar);
+
+		JLabel lblCodigo = new JLabel(LABEL_CODIGO);
+		lblCodigo.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+		lblCodigo.setBounds(10, 31, 109, 14);
+		contentPane.add(lblCodigo);
+
+		txtCodigo = new JTextField();
+		txtCodigo.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+		txtCodigo.setBounds(129, 76, 283, 20);
+		txtCodigo.setColumns(10);
+		contentPane.add(txtCodigo);
 
 		JLabel lblTitulo = new JLabel(LABEL_TITULO);
 		lblTitulo.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
@@ -299,6 +328,34 @@ class TelaArtigo extends JFrame implements ActionListener
 		cbVeiculoDePublicacao.setEditable(true);
 		cbVeiculoDePublicacao.setBounds(129, 28, 283, 20);
 		contentPane.add(cbVeiculoDePublicacao);
+
+		JLabel lblPaginaInicial = new JLabel(LABEL_PAGINA_INICIAL);
+		lblTitulo.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+		lblTitulo.setBounds(10, 31, 109, 14);
+		contentPane.add(lblPaginaInicial);
+
+		txtPaginaInicial = new JTextField();
+		txtPaginaInicial.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+		txtPaginaInicial.setBounds(129, 76, 283, 20);
+		txtPaginaInicial.setColumns(10);
+		contentPane.add(txtPaginaInicial);
+
+		JLabel lblPaginaFinal = new JLabel(LABEL_PAGINA_FINAL);
+		lblPaginaFinal.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+		lblPaginaFinal.setBounds(10, 31, 109, 14);
+		contentPane.add(lblPaginaFinal);
+
+		txtPaginaFinal = new JTextField();
+		txtPaginaFinal.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+		txtPaginaFinal.setBounds(129, 76, 283, 20);
+		txtPaginaFinal.setColumns(10);
+		contentPane.add(txtPaginaFinal);
+
+		btnCadastrar = new JButton(BNT_CADASTRAR);
+		btnCadastrar.setBounds(0, 0, 150, 23);
+		btnCadastrar.addActionListener(this);
+		btnCadastrar.setActionCommand(BNT_CADASTRAR);
+		contentPane.add(btnCadastrar);
 	}
 
 	public void actionPerformed(ActionEvent e)
@@ -307,6 +364,8 @@ class TelaArtigo extends JFrame implements ActionListener
 		if(e.getActionCommand().equals(this.btnVoltar.getActionCommand())){
 			this.setVisible(false);
 			home.setVisible(true);
+		} else if (e.getActionCommand().equals(this.btnCadastrar.getActionCommand())) {
+			this.setVisible(false);
 		}
 	}
 }
