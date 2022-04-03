@@ -28,6 +28,7 @@ class TelaInicial extends JFrame implements ActionListener
 	private TelaCadastroInstituicao cadastroInstituicao = new TelaCadastroInstituicao(this);
 	private TelaVeiculoDePublicacao cadastroVeiculoDePublicacao = new TelaVeiculoDePublicacao(this);
 	private TelaArtigo cadastroArtigo = new TelaArtigo(this);
+	private TelaPesquisador cadastroPesquisador = new TelaPesquisador(this);
 
 	//Constants
 	private final String SCREEN_TITLE = "Tela Inicial";
@@ -70,10 +71,9 @@ class TelaInicial extends JFrame implements ActionListener
 		contentPane.add(btnPesquisador);
 	}
 
-	public void actionPerformed(ActionEvent e)
-	{
+	public void actionPerformed(ActionEvent e) {
 		//Se o botao instituicao for acionado
-		if(e.getActionCommand().equals(this.btnInstituicao.getActionCommand())){
+		if (e.getActionCommand().equals(this.btnInstituicao.getActionCommand())) {
 			this.setVisible(false);
 			cadastroInstituicao.setVisible(true);
 		} else if (e.getActionCommand().equals(this.btnVeiculoDePublicacao.getActionCommand())) {
@@ -84,7 +84,7 @@ class TelaInicial extends JFrame implements ActionListener
 			cadastroArtigo.setVisible(true);
 		} else if (e.getActionCommand().equals(this.btnPesquisador.getActionCommand())) {
 			this.setVisible(false);
-			new TelaContato().setVisible(true);
+			cadastroPesquisador.setVisible(true);
 		}
 	}
 }
@@ -161,6 +161,8 @@ class TelaCadastroInstituicao extends JFrame implements ActionListener
 		if(e.getActionCommand().equals(this.btnVoltar.getActionCommand())){
 			this.setVisible(false);
 			home.setVisible(true);
+		} else if (e.getActionCommand().equals(this.btnCadastrar.getActionCommand())) {
+			this.setVisible(false);
 		}
 	}
 }
@@ -257,7 +259,7 @@ class TelaVeiculoDePublicacao extends JFrame implements ActionListener
 
 class TelaArtigo extends JFrame implements ActionListener
 {
-	TelaInicial home;
+	private TelaInicial home;
 
 	private JPanel contentPane;
 	private JTextField txtCodigo;
@@ -350,6 +352,107 @@ class TelaArtigo extends JFrame implements ActionListener
 		txtPaginaFinal.setBounds(129, 76, 283, 20);
 		txtPaginaFinal.setColumns(10);
 		contentPane.add(txtPaginaFinal);
+
+		btnCadastrar = new JButton(BNT_CADASTRAR);
+		btnCadastrar.setBounds(0, 0, 150, 23);
+		btnCadastrar.addActionListener(this);
+		btnCadastrar.setActionCommand(BNT_CADASTRAR);
+		contentPane.add(btnCadastrar);
+	}
+
+	public void actionPerformed(ActionEvent e)
+	{
+		//Se o botao voltar
+		if(e.getActionCommand().equals(this.btnVoltar.getActionCommand())){
+			this.setVisible(false);
+			home.setVisible(true);
+		} else if (e.getActionCommand().equals(this.btnCadastrar.getActionCommand())) {
+			this.setVisible(false);
+		}
+	}
+}
+
+class TelaPesquisador extends JFrame implements ActionListener
+{
+	private TelaInicial home;
+
+	private JPanel contentPane;
+	private JTextField txtNome;
+	private JComboBox cbInstituicao;
+	private JTextField txtCPF;
+	private JComboBox cbArtigo;
+
+	private JButton btnVoltar;
+	private JButton btnCadastrar;
+
+	//Constants
+	private final String SCREEN_TITLE = "Cadastro de Pesquisador";
+	private final String BNT_VOLTAR = "Voltar";
+	private final String BNT_CADASTRAR = "Cadastrar";
+	private final String LABEL_NOME = "Nome:";
+	private final String LABEL_INSTITUICAO = "Instituicao:";
+	private final String LABEL_CPF = "CPF:";
+	private final String LABEL_ARTIGO = "Artigo:";
+
+	public TelaPesquisador(TelaInicial home)
+	{
+		this.home = home;
+
+		setTitle(SCREEN_TITLE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 556, 413);
+		contentPane = new JPanel();
+		setContentPane(contentPane);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+		btnVoltar = new JButton(BNT_VOLTAR);
+		btnVoltar.setBounds(0, 0, 150, 23);
+		btnVoltar.addActionListener(this);
+		btnVoltar.setActionCommand(BNT_VOLTAR);
+		contentPane.add(btnVoltar);
+
+		JLabel lblNome = new JLabel(LABEL_NOME);
+		lblNome.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+		lblNome.setBounds(10, 31, 109, 14);
+		contentPane.add(lblNome);
+
+		txtNome = new JTextField();
+		txtNome.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+		txtNome.setBounds(129, 76, 283, 20);
+		txtNome.setColumns(10);
+		contentPane.add(txtNome);
+
+		JLabel lblInstitucao = new JLabel(LABEL_INSTITUICAO);
+		lblInstitucao.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+		lblInstitucao.setBounds(10, 31, 109, 14);
+		contentPane.add(lblInstitucao);
+
+		cbInstituicao = new JComboBox();
+		cbInstituicao.setEditable(true);
+		cbInstituicao.setBounds(129, 28, 283, 20);
+		contentPane.add(cbInstituicao);
+
+		JLabel lblCPF = new JLabel(LABEL_CPF);
+		lblCPF.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+		lblCPF.setBounds(10, 31, 109, 14);
+		contentPane.add(lblCPF);
+
+		txtCPF = new JTextField();
+		txtCPF.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+		txtCPF.setBounds(129, 76, 283, 20);
+		txtCPF.setColumns(10);
+		contentPane.add(txtCPF);
+
+		JLabel lblArtigo = new JLabel(LABEL_ARTIGO);
+		lblArtigo.setFont(new Font("Franklin Gothic Book", Font.BOLD, 12));
+		lblArtigo.setBounds(10, 31, 109, 14);
+		contentPane.add(lblArtigo);
+
+		cbArtigo = new JComboBox();
+		cbArtigo.setEditable(true);
+		cbArtigo.setBounds(129, 28, 283, 20);
+		contentPane.add(cbArtigo);
 
 		btnCadastrar = new JButton(BNT_CADASTRAR);
 		btnCadastrar.setBounds(0, 0, 150, 23);
