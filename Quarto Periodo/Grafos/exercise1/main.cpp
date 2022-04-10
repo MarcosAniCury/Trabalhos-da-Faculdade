@@ -15,13 +15,11 @@ class AdjacencyVertex {
     int vertex;
     int weight;
     AdjacencyVertex *prox;
-    AdjacencyVertex *proxList;
 public:
     AdjacencyVertex() {
         vertex = 0;
         weight = -1;
         prox = NULL;
-        proxList = NULL;
     }
 
     int getVertex() const {
@@ -47,14 +45,6 @@ public:
     void setProx(AdjacencyVertex *prox) {
         AdjacencyVertex::prox = prox;
     }
-
-    AdjacencyVertex *getProxList() const {
-        return proxList;
-    }
-
-    void setProxList(AdjacencyVertex *proxList) {
-        AdjacencyVertex::proxList = proxList;
-    }
 };
 
 class AdjacencyList {
@@ -63,26 +53,14 @@ class AdjacencyList {
 public:
     AdjacencyList() {
         AdjacencyVertex vertex[LAST_VERTEX+1];
-        for (int i = FIRST_VERTEX;i <= LAST_VERTEX;i++){
-            vertex[i].setVertex(i);
-        }
         adjacencyList = vertex;
-
-        printAllVertex();
 
         isWeighted = false;
     }
 
     AdjacencyList(bool isWeighted) {
         AdjacencyVertex vertex[LAST_VERTEX+1];
-        for (int i = FIRST_VERTEX;i <= LAST_VERTEX;i++){
-            vertex[i].setVertex(i);
-            vertex[i].setProx(NULL);
-            vertex[i].setProxList(NULL);
-        }
         adjacencyList = vertex;
-
-        printAllVertex();
 
         AdjacencyList::isWeighted = isWeighted;
     }
@@ -103,19 +81,23 @@ public:
         AdjacencyList::isWeighted = isWeighted;
     }
 
-    void setVertex(int index, int weight = -1, AdjacencyVertex *prox = NULL) {
+    void setVertex(int index, int weight = -1, int proxVertex = 0) {
         AdjacencyVertex* vertexModify = &adjacencyList[index];
-        while (vertexModify->getProxList() != NULL && vertexModify->getProx()->getVertex() != index) {
-            vertexModify = vertexModify->getProxList();
+        while (vertexModify->getProx() != NULL) {
+            vertexModify = vertexModify->getProx();
         }
+
+        if (vertexModify->getVertex() == 0) {
+            vertexModify->setVertex(index);
+        }
+
+        AdjacencyVertex vertex;
         if (isWeighted) {
-            vertexModify->setWeight(weight);
+            vertex.setWeight(weight);
         }
-        if (prox != NULL) {
-            vertexModify->setProxList(prox);
-            if (adjacencyList[index].getVertex() == vertexModify->getVertex()) {
-                vertexModify->setProx(prox);
-            }
+        if (proxVertex != 0) {
+            vertex.setVertex(proxVertex);
+            vertexModify->setProx(&vertex);
         }
     }
 
@@ -137,26 +119,17 @@ public:
             cout << msg << endl;
         }
     }
-
-    void printAllVertex(){
-        string msg = "";
-        for (int i = FIRST_VERTEX;i <= LAST_VERTEX;i++) {
-            msg += adjacencyList[i].getVertex() + "\n";
-        }
-        cout << msg << endl;
-    }
 };
 
 int startMenu() {
     int input = 0;
     bool flag;
     do {
-        string userInput;
         cout << "Bem vindo ao sistema de armazenamento de grafos" << endl;
         string msg = "Escolha entre as opcoes abaixo\n1)Grafo direcionado nao-ponderado\n2)Grafo nao-direcionado nao-ponderado\n3)Grafo direicionado ponderado\n4)Grafo nao-direcionado ponderado\n\n0)Para sair";
         cout << msg << endl;
         scanf("%d", &input);
-        flag = input < 0 && input > 4;
+        flag = input < 0 || input > 4;
 
         if (flag) {
             cout << "\n\nOpcao invalida digite novamente\n\n" << endl;
@@ -170,14 +143,13 @@ void createGraphDirectedNotWeighted() {
     AdjacencyList graphDirectedNotWeighted(isWeighted);
     for(int i = 0; i < MAX_PAIR_VETEX;i++) {
         int firstValuePairOfVertex = firstValueOfPairVertex[i];
-        AdjacencyVertex *proxVertex = graphDirectedNotWeighted.getVertex(
-                secondValueOfPairVertex[i]);
+        int secondValuePairOfVertex = secondValueOfPairVertex[i];
 
         graphDirectedNotWeighted.setVertex
         (
             firstValuePairOfVertex,
             -1,
-            proxVertex
+            secondValuePairOfVertex
         );
     }
 
