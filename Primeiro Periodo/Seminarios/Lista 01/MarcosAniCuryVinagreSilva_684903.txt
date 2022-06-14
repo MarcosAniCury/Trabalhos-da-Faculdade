@@ -1,0 +1,101 @@
+Nome do aluno: Marcos Ani Cury Vinagre Silva
+Número de matrícula: 684903
+Turno: Manhã
+Nome do professor: Orlando
+
+1) Escreva um shellscript que conte exatamente quantos subdiretórios um usuário possui em um diretório qualquer recebido por parâmetro e informe esta quantidade.
+
+#!/bin/bash 
+
+   ls -d * /home/1247689@PUCMINAS.NET/$1| wc -l
+
+2) Crie um shellscript para, no arquivo access.log utilizado em sala de aula, dizer quantos acessos foram feitos no mês de setembro de qualquer ano, no horário entre 00:00 e 01:59. 
+ 
+#!/bin/bash
+
+armazem=$(cat access.log)
+resp=$(echo "$armazem" | grep '/Sep/' )
+resp=$(echo "$resp" | cut -d ' ' -f 4)
+resp=$(echo "$resp" | cut -d ':' -f '2-3')
+resp=$(echo "$resp" | grep -E '^1[2-3]:[0-5][0-9]')
+echo "$resp" | wc -l
+
+3) Faça um shellscript que:  
+	a) Receba como parâmetros dois números inteiros entre 2 e 10.000 do usuário;  
+	b) Verifique se cada um dos números entre os dois parâmetros é um número primo; 
+	c) Crie um arquivo primosN1-N2.txt, onde N1 e N2 são os parâmetros recebidos, contendo todos os números primos encontrados. 
+
+#!/bin/bash
+
+declare -i num1=$1
+declare -i num2=$2
+
+arq="./numprimos_$num1-$num2.txt"
+if [ $num1 -lt 2 ] || [ $num2 -gt 10000 ]; 
+then
+	echo "O primeiro numero $num1 , é invalido, por favor, digite um numero entre 2 e 10.000"
+exit
+fi
+
+if [ $num2 -lt 2 ] || [ $num2 -gt 10000 ]; 
+then
+	echo "O Segundo numero $num2 , é invalido, por favor, digite um numero entre 2 e 10.000"
+exit
+fi
+
+for for1 in $(seq $num1 $num2 ); 
+do
+	declare -i cont=0
+	for for2 in $(seq 1 $for1 ); 
+	do
+		resul=$(($for1%$for2))
+		if [ $resul -eq 0 ] 
+		then
+			cont=$(($cont+1))
+		fi
+	done
+	if [ $cont -eq 2 ] 
+	then
+		echo "O numero $for1 é primo" >> $arq
+	fi
+done
+
+4) Escreva um script que mostre o nome do programa que gasta a maior quantidade de memória.
+
+#!/bin/bash
+
+arq=$(cat dados20192.txt)
+mem_nome=$(echo "$arq" | cut -d ' ' -f 4,8)
+mem_nome=$(echo "$mem_nome" | sort -t 1 -g)
+echo "$mem_nome" | tail -n 1 | cut -d ' ' -f 2 
+
+5) Escreva um script que mostre a quantidade de programas que ocupem mais do que 20000 bytes de memória do usuário user004. 
+
+#!/bin/bash
+arq=$(cat dados20192.txt)
+nom_mem=$(echo "$arq" | grep 'user004')
+nom_mem=$(echo "$nom_mem" | cut -d ' ' -f 4 | grep -P '^[1-2][0-9]{3,}')
+echo "$nom_mem" | wc -l
+
+6) Escreva um script que recebe um usuário como parâmetro e mostre o total de memória gasto pelos programas deste usuário. 
+
+#!/bin/bash
+
+user=$1
+arq=$(cat dados20192.txt)
+cod=$(echo "$arq" | grep -E "^$user")
+cod=$(echo "$cod" | cut -d ' ' -f 4)
+soma=0
+	for for1 in $cod; 
+	do
+		soma=$(($soma+$for1))
+	done
+echo "$soma"
+
+
+
+
+
+
+
+ 
