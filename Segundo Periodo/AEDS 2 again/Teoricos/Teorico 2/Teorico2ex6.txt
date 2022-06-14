@@ -1,0 +1,23 @@
+Teorico2ex6
+
+boolean doidao (char n){
+	boolean resp= false;
+	int v = (int) c;
+	if (v == 65 || v == 69 || v == 73 || v == 79 || v == 85 || v == 97 || v == 101 || v ==105 || v == 111 || v == 117){
+		resp = true;
+	}
+	return resp;
+}
+
+char toUpper(char c){
+	return (c >= ‘a' && c <= ‘z') ? ((char) (c – 32)) : c ;
+}
+
+boolean isVogal (char c){
+	c = toUpper(c);
+	return (c =='A' || c =='E' || c =='I' || c =='O' || c =='U');
+}
+
+A primeira funcao do codigo acima, pega o codigo ASCII do caracter c e compara com alguns valores inteiros, caso o valor inteiro seja igual ao codigo ASCII do caracter c ele retorno true, caso o contrario retorna false.
+
+Já a terceira funcao pega um caracter e manda ele receber o return da funcao toUpper enviando ela mesma, ja nessa funcao ele retorna caso o caracter esteja minusculo o resultado da subtracao do valor da tabela ASCII desse caracter menos 32 em forma de caracter (qualquer letra minuscula quando retirado 32 de seu valor em ASCII vira a propria letra so q maiuscula), caso ela ja seja maiuscula ela so retorno o proprio caracter e continuando a terceira funcao ele retorna true caso esse caracter maiusculo seja uma vogal ou false caso o contrario.  

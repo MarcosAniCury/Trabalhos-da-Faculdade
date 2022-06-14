@@ -1,0 +1,99 @@
+.Menu
+{
+    background-color: #88e8dc;
+}
+.Navegador
+{
+    color: white;
+    font-size:20px;
+    font-family:'Calibri Light';
+    margin-left: 70px;
+    margin-right: 70px;
+}
+.Formularios, .Drop
+{
+    color: black;
+    font-size:16px;
+    font-family:'Calibri Light';
+    margin-right: 20px;
+}
+.Formulario
+{
+    display:flex;
+    justify-content:center;
+}
+.Ent
+{
+    border-color: black;
+}
+.Border
+{
+    background-color: #88e8dc;
+}
+.nav-item-custom:hover 
+{
+    color: #000 !important;
+}
+.Letra
+{
+    font-family:'Calibri Light';
+}
+.FruFru
+{
+    background-color: #88e8dc;
+}
+.Tamanho
+{
+    width: 500px;
+}
+textarea 
+{
+    resize: none;
+}
+.Fundo
+{
+    background-color: black;
+}
+.NSublinhado
+{
+    text-decoration:none;
+}
+.SobreTitulo
+{
+    text-align: center;
+    font-family:'Calibri Light';
+    color: black;
+}
+.SobreP
+{
+    font-family:'Calibri Light';
+    color: black;
+    font-size: 18px;
+}
+.circle 
+{
+    align-items: center;
+    background-color:white;
+    border-radius: 80%;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: relative;
+}
+.circle img 
+{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+.CriadoresTitulo
+{
+    font-family:'Calibri Light';
+    color: black;
+}
+.Email
+{
+    text-align: center;
+    font-family:'Calibri Light';
+    color: white;
+}

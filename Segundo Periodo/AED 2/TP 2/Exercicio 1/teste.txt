@@ -1,0 +1,3 @@
+## Ackbar ## 180 ## 83.0 ## none ## brown mottle ## orange ## 41BBY ## male ## Mon Cala ##
+## Adi Gallia ## 184 ## 50.0 ## none ## dark ## blue ## unknown ## female ## Coruscant ##
+## Anakin Skywalker ## 188 ## 84.0 ## blond ## fair ## blue ## 41.9BBY ## male ## Tatooine ##

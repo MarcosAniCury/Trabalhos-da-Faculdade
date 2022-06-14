@@ -1,0 +1,23 @@
+1) a)27 base 10 = 11011 base 2
+b)51 base 10 = 110011 base 2
+c)721 base 10 = 1011010001 base 2
+d)123 base 10 = 1111011 base 2
+e)366 base 10 =101101110 base 2
+
+2) a)11101 base 2 = 58 base 10
+b)10100 base 2 = 40 base 10
+c)101101 base 2 = 90 base 10
+d)110011 base 2 = 102 base 10
+e)111011 base 2 = 118 base 10
+
+3) a)73 base 10 = 1021 base 4
+b)46 base 10 = 56 base 8
+c)65 base 10 = 41 base 16
+d)172 base 10 = AC base 16
+e)157 base 10 = D9 base 16
+
+4) a)11011 base 2 = 54 base 10 = 312 base 4
+b)10001 base 2 = 34 base 10 = 40 base 8
+c)101111 base 2 = 94 base 10 = 5E base 16
+d)110101 base 2 = 102 base 10 = 146 base 8
+e)110111 base 2 = 110 base 10 = 1232 base 4

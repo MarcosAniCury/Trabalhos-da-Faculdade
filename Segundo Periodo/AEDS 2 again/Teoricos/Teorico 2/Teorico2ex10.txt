@@ -1,0 +1,15 @@
+Teorico2ex10
+
+int m1(int i)
+{
+	return i--;
+}
+
+O codigo acima retorna o valor i e apos isso ele subtrai 1 de i
+
+int m2(int i)
+{
+	return --i;
+}
+
+o codigo acima subtrai 1 do valor de i e depois retorna

@@ -1,0 +1,8 @@
+Teorico2ex12
+
+int x = 23, y = 23;
+x = x << 1;
+y = y >> 1;
+System.out.println(“[” + x + “ - ” + y + “]”);
+
+O codigo acima imprime 46 e 11 pois o >> vai inserir esse valor na direita dos bytes e o << vai inserir o valor do lado esquerdo do byte assim "empurando" os bytes remanescente pro lado jogando o ultimo ou o primeiro "fora"

@@ -1,0 +1,109 @@
+Marcos Ani Cury - 684903
+
+Exercício 1:	2^0=1
+		2^1=2
+		2^2=4
+		2^3=8
+		2^4=16
+		2^5=32
+		2^6=64
+		2^7=128
+		2^8=256
+		2^9=512
+		2^10=1024
+		2^11=2048
+
+Exercício 2:	log(2048)=3,30
+		log(1024)=3,00
+		log(512)=2,70
+		log(256)=2,40
+		log(128)=2,10
+		log(64)=1,80
+		log(32)=1,50
+		log(16)=1,20
+		log(8)=0,90
+		log(4)=0,60
+		log(2)=0,30
+		log(1)=0
+
+Exercício 3:	//t == teto,p == piso
+		a)t4.01=4.5
+		b)p4.01=4
+		c)t4.99=5
+		d)p4.99=4.5
+		e)log(16)=1.20
+		f)tlog(16)=1.5
+		g)plog(16)=1
+		h)log(17)=1.23
+		i)tlog(17)=1.5
+		j)plog(17)=1
+		k)log(15)=1.17
+		l)tlog(15)=1.5
+		m)plog(15)=1
+
+Exercicio 4: 	
+
+Exercicio 5:	public boolean contido(int[] array,int x)
+		{
+			boolean contido = false;
+			for(int i = 0;i < array.size();i++)
+			{
+				if(array[i] == x)
+					contido = true;
+			}
+			return contido;
+		}
+	
+Exercicio 6:	public boolean contido(int[] array,int x)
+		{
+			boolean contido = false;
+			if(array[array.size()/2] > x)
+			{
+				for(int i = array.size()/2;i < array.size();i++)
+				{
+					if(array[i] == x)
+						contido = true;
+				}
+			}
+			else
+			{
+				for(int i = array.size()/2;i > 0;i--)
+				{
+					if(array[i] == x)
+						contido = true;
+				}
+			}
+			return contido;
+		}
+
+Exercicio 7:	public void MaiMenEle(int[] array)
+		{
+			int maior = array[0];
+			int menor = array[0];
+			for(int i = 0;i < array.size();i++)
+			{
+				if(array[i] > maior)
+					maior = array[i];
+				if(array[i] < menor)
+					menor = array[i];
+			}
+			System.out.println(maior+" "+menor);
+		}
+
+Exercicio 8: 	public void MaiMenEle(int[] array)
+		{
+			int maior = array[0];
+			int menor = array[0];
+			for(int i = 0;i < array.size();i++)
+			{
+				if(array[i] > maior)
+					maior = array[i];
+				if(array[i] < menor)
+					menor = array[i];
+			}
+			System.out.println(maior+" "+menor);
+		}
+
+Exercicio 9:	retorna falso
+
+Exercicio 10: 	retorna falso

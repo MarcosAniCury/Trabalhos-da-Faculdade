@@ -1,0 +1,13 @@
+Teorico3ex27 - 28
+
+ex27) 1) Comparacao entre elementos do array
+
+2) n - 1
+
+ex28) 
+
+A notação O (big o) é utilizada para o pior caso de um algoritmo, no nosso caso o maior numero de comparações relevantes.
+
+A notação Ω (big omega) é utilizada para o melhor caso de um algortmo, no nosso caso o menor numero de comparações relevantes.  
+
+A notação Θ (big theta) é utilizada para o caso médio de um algoritmo, no nosso caso ela não será utilizada pois como dito em sala o caso médio é estatístico e com isso não há uma forma de saber no momento.

@@ -1,0 +1,36 @@
+Saudações,
+
+Comunicamos a disponibilidade de material didático no SGA.
+
+Recomendamos percorrer o site, principalmente para conhecer
+o programa da disciplina, calendário e outras informações
+úteis.
+
+Sugerimos providenciar a preparação das ferramentas para
+a preparação das listas de exercícios.
+
+Há uma lista de links úteis de onde essas ferramentas 
+poderão ser baixadas, principalmente para o arquivo com os 
+programas já selecionados, o qual NÂO estará disponível
+no SGA por restrições de tamanho.
+
+São indicadas as leituras prévias dos arquivos abaixo,
+os quais serão abordados nas primeiras aulas.
+
+Cronograma
+Bibliografia
+
+Links
+
+Capítulo_01
+Capítulo_02
+
+Verilog
+
+Instruções
+Guia_01
+
+
+Até breve.
+
+T. Cruz
