@@ -1,0 +1,3 @@
+Teorico 4, exercício 2
+
+Testando a nova versão do algoritmo de seleção, podemos notar que comm a implementação na comparação antes do swap será evitada trocas quando o menor já começar em i e dessa formma diminuindo o numero de movimentações totais do vetor.

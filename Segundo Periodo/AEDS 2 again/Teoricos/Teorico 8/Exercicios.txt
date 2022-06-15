@@ -1,0 +1,37 @@
+Teorico 8
+
+Exercicio Resolvido 1)a)1024
+b)10
+c)4,087..
+d)5
+e)4
+
+Exercicio Resolvido 3) melhor caso: n
+pior caso: 2n
+
+Exercicio Resolvido 4) n-3
+
+Exercicio Resolvido 5) lg(n) + 1
+
+Exercicio Resolvido 7) 1) comparações entre os elementos do array
+2) n-1
+
+Exercicio Resolvido 8) 1)comparações entre os elementos do array
+2) n-1
+3) todos os casos
+4)pois ele sempre ira manter o mesmo numero de comparações, sem variações
+
+Exercicio 1) 2n-2
+
+Exercicio Resolvido 10) Ordenar e depois aplicar a pesquisa binaria, pois assim economiza tempo nas proximas pesquisas
+
+Exercicio Resolvido 11)a)false
+b)true
+c)true
+d)true
+e)true
+f)false
+g)false
+h)true
+i)false
+

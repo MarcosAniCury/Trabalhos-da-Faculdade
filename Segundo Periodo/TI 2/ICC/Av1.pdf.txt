@@ -1,0 +1,22 @@
+Avaliação de ICC
+
+integrantes:Marcos Ani Cury,Victor Leite,Paulo Rievers
+
+1)Hardware é a parte física do computador(peças) e o software é a parte virtal do computador(programas).
+2)*Processador
+*Placa de vídeo
+*Placa mãe
+Memória RAM 
+3)Um computador serve para facilitar o cotidiano das pessoas.
+4)A rede serve para fazer a conexão entre vários aparelhos eletrônicos ao redor do mundo e em segundos.
+5)Provedor
+*Switch
+Roteador
+6)Um sistema operacional serve para comandar e gerenciar os outros programas e os hardwares do computador.
+7)Microsoft-Windows
+*Motorola/Samsung-Android
+*Iphone-IOS
+*Computadores-Linux/Windows
+8)As Redes da próximas gerações vão possuir uma convergência de entre os serviços de voz e dados integrados e representa um enorme potencial de redução de custos de operação e manutenção da rede.
+9)Dual boot, Um editor de video, plataforma de otimização de jogos digitais.
+10)Os paradigmas da computação tendem a se manter os mesmo tanto no passado, presente e futuro porem em proporções diferentes, e sendo eles o valor, o tamanho, e a velocidade.

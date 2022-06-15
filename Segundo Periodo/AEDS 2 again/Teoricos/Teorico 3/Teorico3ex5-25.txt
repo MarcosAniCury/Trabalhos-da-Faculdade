@@ -1,0 +1,49 @@
+Teorico3ex5-17
+
+//Usarei apenas melhor e pior caso, pois n tem como calcular o caso medio
+
+ex5) 3
+
+ex6) melhor caso = 3
+pior case = 5
+
+ex7) melhor caso = 5
+pior caso = 7
+
+ex8) Todos os casos = 4
+
+ex9) Todos os casos = 2n
+
+ex10) Todos os casos = 3
+
+ex11) Todos os casos = n-3
+
+ex12) Todos os casos = 4
+
+ex13) Todos os casos = 8
+
+ex14) Todos os casos = 8
+
+ex15) Todos os casos = 6
+
+ex16) Todos os casos = n²
+
+ex17) O codigo fara 9 subtracoes
+
+ex18) n² - 3
+
+ex19)???
+
+ex20)???
+
+ex21) (n-7)*(n-7)
+
+ex22) log(n)+1
+
+ex23) log(n) + 2
+
+ex24) log(n)
+
+ex25) log (n) *2
+
+ex26) 

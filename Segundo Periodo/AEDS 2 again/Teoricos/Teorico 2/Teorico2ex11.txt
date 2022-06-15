@@ -1,0 +1,9 @@
+Teorico2ex11
+
+byte b = 0; short s = 0; int i = 0; long l = 0;
+while (true){
+	b++; s++; i++; l++;
+	MyIO.println(b + " " + s + " " + i + " " + l);
+}
+
+no codigo acima ele vai printar as quartro variaveis em um loop infinito acrescentando uma unidade, ate estourar a memoria de cada variavel, sendo a ultima remanescente a long que e uma versao com mais capacidade da int.

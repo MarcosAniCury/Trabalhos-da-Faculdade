@@ -1,0 +1,5 @@
+Q3
+
+A = (movies) ⨝ id = movie_id (movies_directors)
+B = (A) ⨝ movies_directors.director_id = directors.id (directors)
+π movies.name,directors.first_name,directors.last_name (B)

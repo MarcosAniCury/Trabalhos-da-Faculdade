@@ -1,0 +1,17 @@
+Base de dado: Covid, Alimentar a base de dados com diversos paises
+
+Retirada de dados:https://ufmg-dest.shinyapps.io/covid19br/, https://www.google.com.br
+
+Como as medidas preventivas tomadas ajudaram os diferentes paises durante o periodo do covid.
+
+Alimentacao de Dados:
+Brasil - Marcos
+Japao - Leticia
+India - vitor
+USA - Guilherme
+China - Joao
+
+OBS:
+Diferencial de costume de cada pais com a saúde pública
+
+Máscaras diminuem em 5x a chance de pegar corona virus

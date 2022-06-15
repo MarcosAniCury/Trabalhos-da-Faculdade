@@ -1,0 +1,34 @@
+Trabalho Prático 1
+
+684903-Marcos Ani Cury Vinagre Silva
+
+1) Leitura dos artigos http://www.optotech.net.br/msx/cpld/11-55-1-PB.pdf,
+https://edisciplinas.usp.br/pluginfile.php/530826/mod_resource/content/1/DISPOSITIVOS LÓGICOS
+PROGRAMÁVEIS_2014.pdf
+
+2)
+
+3) ASIC ou Application Specific IC são circuitos orientados para implementação de tarefas específicas em domínios vem definidos.
+
+ASSP são muito similares aos ASIC sendo até da mesma "familía" dos SoCs porém diferente do ASIC o ASSP são feitor para mais propósitos e são utilizados por multiplos sistemas.
+
+SPLD são uma das vertentes dos PDL que nada mais são do que dispositivos lógicos programáveis e os SPLD são dispositivos lógicos prográmaveis simples, e eles têm muitas vantagens em comparação com elementos lógicos tradicionais como o fato de um deles substituir vários elementos lógicos.
+
+CPLD é mais uma das vertentes dos PDL e são conhecidos como dispositivos lógicos programáveis complexos, e nada mais são do que um conjunto de SPLD que cruzão entre sí.
+
+SoC nada mais é do que um chip que possui processador memória e atpe uma placa de vídeo.
+
+FGPA é uma evolução da CPLD porem sua arquitetura é totalmente diferente.O FPGA tem 3 partes divididos entre blocos de código, blocos de interconexão e vlocos de entrada/saída.
+
+4)
+PROM (memoria apens para leitura programavel)| Memória que pode ser programada apenas uma vez e após isso só serve como dispossitivo de leitura
+
+PLA (PLD)| Uma matriz programável de portas AND e OR 
+
+PAL (PLD)| Possui a matriz programável de AND e uma matriz fixa de porta OR
+
+5)
+CPLD | Um circuito integrado que ajuda a implementar sistemas digitais | e ele é focado em aplicações de pequena e média escala
+
+FPGA | Um circuito integrado projetado para ser configurado por um cliente ou designer apos a fabricacao | e ele é focado em aplicações de grande escala
+

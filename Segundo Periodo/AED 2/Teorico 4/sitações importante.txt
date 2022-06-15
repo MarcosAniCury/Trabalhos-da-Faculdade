@@ -1,0 +1,4 @@
+http://rmct.ime.eb.br/arquivos/RMCT_1_tri_1987/teoria_complex_comput.pdf
+http://www.inf.ufpr.br/vignatti/courses/ci165/23.pdf
+http://www2.fct.unesp.br/docentes/dmec/olivete/tc/arquivos/Aula10.pdf
+http://www-di.inf.puc-rio.br/~hermann/slides-complexidade.pdf

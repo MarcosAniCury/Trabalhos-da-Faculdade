@@ -1,0 +1,5 @@
+segue aqui um esboço do nosso aplicativo junto com um inicio para o nosso blog
+
+aplicativo:ai2.appinventor.mit.edu/?galleryId=5547141202837504
+
+blog:https://fernandarcpassos.wixsite.com/website/servicos

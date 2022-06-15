@@ -1,0 +1,143 @@
+PUC-Minas
+Instituto de Ciências Exatas e Informática
+Curso de Ciência da Computação
+Arquitetura de Computadores I
+
+Links recomendados
+
+http://sourceforge.net/projects/iverilog/
+    Icarus Verilog Interactive compiler & simulator     
+    Versão recomendada: 11b (modificada) com GTKWave
+                        no pacote de programas distribuído. 
+    Pacote para Verilog e para visualização de ondas
+    Obs.: O pacote pode ser encontrado para cópia local em 
+          W:\Ciencia_da_Computacao\2_Periodo\ARQ1_Manha\2020-1\Downloads\site\
+          O pacote também pode ser encontrado para cópia em 
+          ftp://ftp.pucmg.br/pub/Computação/Mais_Utilizados/Programacao_Hardware/ARQ1/2020-1_arq1_programas.zip
+          ftp://ftp.pucmg.br/pub/Computação/Mais_Utilizados/Programacao_Hardware/Icarus_Verilog/iverilog_v11b.zip
+
+          Existe uma versão mais nova do compilador,
+          entretanto, por ainda ser a de desenvolvimento e
+          poder apresentar problemas de execução,
+          em alguns casos, seu uso não é recomendado.
+
+https://logisim.altervista.org/
+    Editor e simulador de circuitos lógicos
+    Versão recomendada: 2.16.y.z (18/05/2020) ou superior 
+    Obs.: O pacote pode ser encontrado para cópia local em 
+          W:\Ciencia_da_Computacao\2_Periodo\ARQ1_Manha\2020-1\Downloads\site\
+          O programa também pode ser encontrado para cópia local em
+          ftp://ftp.pucmg.br/pub/Computação/Mais_Utilizados/Programacao_Hardware/Logisim/logisim_v2_15_0_2.zip
+          
+http://www.cs.duke.edu/csed/jflap/jflaptmp/
+    JFLAP v7.1 (JFLAP_Thin.jar) (27/07/2018)    
+    Pacote para Máquinas de Estados Finitos
+    Obs.: O programa também pode ser encontrado para cópia local em
+          W:\Ciencia_da_Computacao\2_Periodo\ARQ1_Manha\2020-1\Downloads\site\
+          O pacote também pode ser encontrado para cópia em 
+          ftp://ftp.pucmg.br/pub/Mais_Utilizados/Programacao_Hardware/JFLAP/JFLAP_v7_0
+     
+    IMPORTANTE:
+    A versão JFLAP8_beta.jar, mais nova, ainda em testes,
+    apresenta erros e NÃO é recomendada para uso.
+
+     
+http://www.cs.colby.edu/djskrien/CPUSim/CPUSim4.0.10.zip
+    CPUSim v3.9.0
+    Simulador de conjunto de instruções
+    Obs.: O programa também pode ser encontrado para cópia local em
+          W:\Ciencia_da_Computacao\2_Periodo\ARQ1_Manha\2020-1\Downloads\site\
+          O pacote também pode ser encontrado para cópia em 
+          ftp://ftp.pucmg.br/pub/Mais_Utilizados/Programacao_Hardware/CPUSim/CPUSim_v3_9_0.zip
+
+    IMPORTANTE:
+    As versões mais recentes (4.xx.yy), apresentam erros 
+    quando usadas com a versão mais recente do Java, 
+    e NÃO são recomendadas para uso.
+
+
+Programas alternativos:
+
+
+http://www.jgrasp.org/
+    jGrasp v2.0.6_04  (21/05/2020)
+    Ferramenta para edição e compilação  
+    Obs.: O programa também poderá ser encontrado para cópia local em 
+          ftp://ftp.pucmg.br/pub/Mais_Utilizados/Programacao_Soft/Java/JGrasp
+
+          Versões mais novas (beta) 
+          também poderão ser usadas, 
+          porém, por ainda estarem em desenvolvimento
+          podem apresentar erros, por isso,
+          ainda é recomendável utilizar a versão indicada. 
+          A compatibilidade com a versão mais recente do Java
+          ainda não está bem definida. Aguarda-se uma nova versão 
+          mais compatível, e enquanto isso a versão atual já servirá.
+    
+    IMPORTANTE:
+
+    Configuração do JGrasp
+
+    Verilog (VHDL):
+	
+    New
+      VHDL	(importante começar pela redefinição do já existente)
+
+    Workspace
+      New
+        Verilog
+      C/L: 
+        Compile: iverilog -o %base.vvp %FILE
+      Check:
+      Run: 
+        vvp %base.vvp
+      Debug: 
+        gtkwave %base.vcd
+
+    Extensions
+      v V
+ 
+      Save
+        OK
+ 
+      Use
+        Apply
+
+    OBS.: 
+      Opcional:
+        Copiar templ.vhd para a pasta jGrasp\Data
+        (se não houver)
+      Recomendável: 
+        Incluir o caminho, por exemplo,
+        C:\Icarus_Verilog\bin ao Path
+        (variável de ambiente do sistema)
+
+        ou
+
+        Preceder cada comandos acima pelo
+        caminho completo, por exemplo,
+        C:\Icarus_Verilog\bin\iverilog
+        C:\Icarus_Verilog\bin\vvp
+
+
+http://context.cx/component/option,com_docman/Itemid,48/   
+    Text editor & Verilog highligther (alternativa para o JGrasp)      
+    Editor de textos com destaque para palavras chaves em Verilog
+    Obs.: O Verilog highligther (VerilogHDL.chl) deverá ser copiado
+          em separado e instalado na pasta Context\Highligthers
+          Esse arquivo também pode ser encontrado para cópia local em
+          ftp://ftp.pucmg.br/pub/Mais_Utilizados/Programacao_Software/Context/VerilogHDL.chl
+
+http://www.sutherland-hdl.com/online_verilog_ref_guide/vlog_ref_top.html
+    Verilog reference card
+    Manual online para Verilog
+    (melhor copiar e instalar na pasta IVI\docs ou IVerilog\docs)
+    Obs.: O programa também pode ser encontrado para cópia local em
+          ftp://ftp.pucmg.br/pub/Mais_Utilizados/Programacao_Hardware/Icarus_Verilog/verilog_ref_guide.zip
+
+
+
+Qualquer dúvida sobre o uso dos programas acima
+deverá ser encaminhada ao professor, aos monitores
+ou pessoal técnico do Instituto de Informática.
+ 

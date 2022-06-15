@@ -1,0 +1,4 @@
+A = (movies) ⨝ id = movie_id (roles)
+B = (A) ⨝ roles.actor_id = actors.id (actors)
+C = σ movies.rank > 6 (B)
+π movies.name,actors.first_name,actors.last_name,roles.role (C)

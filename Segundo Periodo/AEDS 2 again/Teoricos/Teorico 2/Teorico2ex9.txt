@@ -1,0 +1,21 @@
+Teorico2ex9
+
+Unidade recuperarUnidadeComCodigoDeUCI(Unidade unidadeFilha) 
+{
+	Unidade retorno = null;
+	if (unidadeFilha.getCodUci() != null && !unidadeFilha.getCodUci().isEmpty()) 
+	{
+		retorno = unidadeFilha;
+	} 
+	else 
+	{
+		retorno = unidadeFilha.getUnidadeSuperior();
+	}
+	while (retorno == null || retorno.getCodUci() == null || retorno.getCodUci().isEmpty()) 
+	{
+		retorno = retorno.getUnidadeSuperior();
+	}
+	return retorno;
+}
+
+Pelo que me parece, se o codigo da unidadeFilha nao estiver vazia a funcao ira ir para o while q ira pegar sempre a UnidadeSuperior da unidadeFilha atual ate q chegue a uma em que o valor seja null, e caso o contrario ela ira pegar a UnidadeSuperior da unidadeFilha e ira ir para o while q ira pegar sempre a UnidadeSuperior da unidadeFilha atual ate q chegue a uma em que o valor seja null.
