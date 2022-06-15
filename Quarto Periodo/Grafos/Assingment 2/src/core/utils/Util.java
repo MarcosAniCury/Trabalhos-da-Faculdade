@@ -2,7 +2,7 @@ package src.core.utils;
 
 import java.util.List;
 
-public class Utils {
+public class Util {
     public static final String ERROR_BY_USER_STRING = "Erro:";
 
     public static String transformaListEmString(List<String> lista) {
