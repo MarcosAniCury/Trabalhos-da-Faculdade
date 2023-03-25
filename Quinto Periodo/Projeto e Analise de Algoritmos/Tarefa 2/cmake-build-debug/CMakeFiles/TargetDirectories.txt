@@ -1,0 +1,3 @@
+C:/Users/Marcos/Documents/Git/Trabalhos-da-Faculdade/Quinto Periodo/Projeto e Analise de Algoritmos/Tarefa 2/cmake-build-debug/CMakeFiles/Tarefa_2.dir
+C:/Users/Marcos/Documents/Git/Trabalhos-da-Faculdade/Quinto Periodo/Projeto e Analise de Algoritmos/Tarefa 2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Marcos/Documents/Git/Trabalhos-da-Faculdade/Quinto Periodo/Projeto e Analise de Algoritmos/Tarefa 2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
