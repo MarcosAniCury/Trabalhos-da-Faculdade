@@ -1,131 +1,90 @@
-# from Store import Store
-
-# def read_arquive():
-#     global stores
-#     arquive = open("stores.txt", "r")
-#     lines = arquive.readlines()
-#     for line in lines:
-#         items = line.strip().split(" ")
-#         listDelivery = []
-#         if len(items) > 3:
-#             listDelivery = items[3:]
-
-#         stores[items[0]] = Store(items[0], items[1], items[2], listDelivery) 
-
-# def visit_store(actual_store, store_to_visit, km_used):
-#     global max_km
-#     for store_visit in store_to_visit.values():
-#         if len(store_visit.delivery) > 0:
-#             calc_km = abs(actual_store.x - store_visit.x) + abs(actual_store.y - store_visit.y) / max_km
-#             visit_store(store_visit.delivery, km_used + calc_km)
-
-# # Define vars used in code
-# max_km = 10
-
-# k_units_max = input("Digite o máximo de unidades que o caminhão pode carregar: ")
-
-# stores = {}
-
-# read_arquive()
-
-# where_truck = [0]
-
-# stores_not_visit = stores[1:]
-# for store_not_reach in stores_not_visit.values():
-#     if len(store_not_reach.delivery) == 0:
-#         continue
-
-#     km_used = visit_store(store_not_reach, store_not_reach.delivery, 0)
-
-import itertools
-import matplotlib.pyplot as plt
 from Store import Store
 
-class Store:
-    def __init__(self, index, x, y, delivery):
-        self.index = index
-        self.x = x
-        self.y = y
-        self.delivery = delivery
+def read_arquive():
+    global stores
+    arquive = open("lojas.txt", "r")
+    lines = arquive.readlines()
+    for line in lines:
+        items = [int(item) for item in line.strip().split(" ")]
+        listDelivery = []
+        if len(items) > 3:
+            listDelivery = items[3:]
 
-    def __str__(self):
-        return f"Index: {self.index}, X: {self.x}, Y: {self.y}, Entregas: {self.delivery}"
+        stores[items[0]] = Store(items[0], items[1], items[2], listDelivery)
 
-def calcular_distancia(p1, p2):
+def calc_distance(p1, p2): #Using Euclidian calculation
     return ((p2.x - p1.x) ** 2 + (p2.y - p1.y) ** 2) ** 0.5
 
-def calcular_combustivel(distancia, carga):
-    rendimento = 10 - carga * 0.5
-    return distancia / rendimento
+def calc_fuel_used(distance, payload):
+    efficiency = 10 - payload * 0.5
+    return distance / efficiency
 
-def encontrar_menor_rota(lojas, capacidade):
-    lojas = lojas.copy()
-    matriz = lojas.pop(0)
-    n = len(lojas)
-    menor_combustivel = float('inf')
-    menor_rota = None
+def generate_route(stores_iteration, initial_store, max_weight, n_delivery_packages):
+    global routes, stores, n_packages, current_combination_index
+    # Adicionar loja atual à permutação
+    routes[current_combination_index].append(initial_store)
 
-    for permutacao in itertools.permutations(lojas):
-        caminho = [matriz] + list(permutacao) + [matriz]
-        carga = 0
-        combustivel = 0
+    # Verificar se a loja atual possui a lista "delivery"
+    if len(initial_store.delivery) > 0:
+        # Gerar permutações com base na lista "delivery"
+        for index, index_target_store in enumerate(initial_store.delivery):
+            # Verificar se o caminhão consegue carregar o pacote
+            if max_weight > 1:
+                # Gera uma possível nova rota
+                if index > 0 and n_delivery_packages < n_packages:
+                    current_combination_index = current_combination_index + 1
+                    routes[current_combination_index] = route_this_moment   
+                else: 
+                    route_this_moment = routes[current_combination_index].copy()
 
-        for i in range(n):
-            origem = caminho[i]
-            destino = caminho[i + 1]
-            distancia = calcular_distancia(origem, destino)
-            combustivel += calcular_combustivel(distancia, carga)
-            carga -= 1
+                # Atualizar o peso máximo
+                new_wight = max_weight
 
-            if destino.delivery:
-                carga += 1
+                # Gerar permutações com a loja alvo
+                copied_stores_iteration = {key: store.copy() for key, store in stores_iteration.items()}
 
-            if carga > capacidade:
-                combustivel = float('inf')
+                copied_stores_iteration[initial_store.index].remove_delivery_item(index_target_store)
+                n_delivery_packages = n_delivery_packages + 1 
+                
+                generate_route(copied_stores_iteration, copied_stores_iteration[index_target_store], new_wight, n_delivery_packages)
+    else:
+        # Encontrar outra loja que tenha a lista "delivery"
+        for store in stores_iteration.values():
+            if len(store.delivery) > 0:
+                generate_route(stores_iteration, store, max_weight, n_delivery_packages)
                 break
 
-        if combustivel < menor_combustivel:
-            menor_combustivel = combustivel
-            menor_rota = caminho
 
-    return menor_rota, menor_combustivel
+# Define vars used in code
+max_km = 10
 
-def plotar_rota(lojas, rota):
-    x = [lojas[i].x for i in rota]
-    y = [lojas[i].y for i in rota]
+k_units_max = int(input("Digite o máximo de unidades que o caminhão pode carregar: "))
 
-    plt.plot(x, y, marker='o')
-    plt.scatter(x[1:-1], y[1:-1], color='red', marker='s')
-    plt.scatter(x[0], y[0], color='green', marker='s', label='Matriz')
-    plt.xlabel('Coordenada X')
-    plt.ylabel('Coordenada Y')
-    plt.title('Rota do caminhão')
-    plt.legend()
-    plt.grid(True)
-    plt.show()
+stores = {}
 
-def main():
-    with open('lojas.txt', 'r') as file:
-        lines = file.readlines()
-        lojas = []
-        for line in lines:
-            data = line.strip().split()
-            index, x, y, *delivery = map(int, data)
-            lojas.append(Store(index, x, y, delivery))
+read_arquive()
 
-    capacidade = 3  # Definir a capacidade máxima do caminhão
+n_packages = sum(len(store.delivery) for store in stores.values())
 
-    menor_rota, menor_combustivel = encontrar_menor_rota(lojas, capacidade)
+routes = {}
 
-    print('Menor rota encontrada:')
-    for store in menor_rota:
-        print(str(store))
-    # print(f'Menor quantidade de combustível gasta: {menor_combustivel}')
+matrix = stores.pop(0)
 
-    plotar_rota(lojas, menor_rota)
+current_combination_index = -1
 
-if __name__ == '__main__':
-    main()
+for store in stores.values():
+    if len(store.delivery) > 0:
+        current_combination_index = current_combination_index + 1
+        routes[current_combination_index] = []
+        copied_stores = {key: store.copy() for key, store in stores.items()}
+        generate_route(copied_stores, store, k_units_max, 0)
+
+for index,route in routes.items():
+    print(f"Route:{index}")
+    print(route)
+    for store in route:
+        print(str(store)+"\n")
+
 
 
 
