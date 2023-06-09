@@ -163,6 +163,12 @@ aside {
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 20px;
+    min-width: 60%;
+}
+
+#div-product-none {
+    text-align: center;
+    width: 100%;
 }
 
 .product {

@@ -25,7 +25,7 @@ function getHTMLStarFromProduct(product) {
 
 function getHTMLProduct(product) {
     return `
-    <article class="product">
+    <article class="product" onclick="navigateItemDetails(${product.id})">
         <div class="div-img-product">
             <img class="img-product" src="Assets/${product.name.toLowerCase().trim().replace(' ', '_')}.jpg" alt="${product.name}">
         </div>
@@ -43,88 +43,40 @@ function getHTMLProduct(product) {
     </article>`;
 }
 
-function generateProducts() {
+async function generateProducts(filter) {
     const products = document.getElementById("section-products");
     products.innerHTML = "";
 
-    mockJSONFile = [
-        {
-            "name": "Dixit",
-            "number_stars": 5,
-            "number_reviews": 100,
-            "price": 100.00,
-            "discount": 10,
-        },
-        {
-            "name": "Ark Nova",
-            "number_stars": 4,
-            "number_reviews": 59,
-            "price": 550.00,
-            "discount": 20
-        },
-        {
-            "name": "Looney Boom",
-            "number_stars": 3,
-            "number_reviews": 10,
-            "price": 150.00,
-            "discount": 30,
-        },
-        {
-            "name": "7 Wonders",
-            "number_stars": 2,
-            "number_reviews": 3,
-            "price": 500.00,
-            "discount": 15,
-        },
-        {
-            "name": "Animix",
-            "number_stars": 0,
-            "number_reviews": 0,
-            "price": 100.00,
-            "discount": 5,
-        },
-        {
-            "name": "Bandido",
-            "number_stars": 4,
-            "number_reviews": 15,
-            "price": 70.00,
-            "discount": 20,
-        },
-        {
-            "name": "Carcassonne",
-            "number_stars": 5,
-            "number_reviews": 99,
-            "price": 300.00,
-            "discount": 40,
-        },
-        {
-            "name": "Century Golem",
-            "number_stars": 0,
-            "number_reviews": 0,
-            "price": 350.00,
-            "discount": 24,
-        },
-        {
-            "name": "Colt Express",
-            "number_stars": 3,
-            "number_reviews": 5,
-            "price": 300.00,
-            "discount": 7,
-        },
-        {
-            "name": "Deception",
-            "number_stars": 4,
-            "number_reviews": 9,
-            "price": 300.00,
-            "discount": 20,
-        },
-    ];
+    let itemsJSON = [];
 
-    if (mockJSONFile.length != 0) {
-        mockJSONFile.forEach(product => {
+    await fetch('http://177.136.202.132:9599/products')
+        .then(response => response.json())
+        .then(response => itemsJSON = response)
+        .catch(error => console.log(error));
+
+    if (filter) {
+        itemsJSON = itemsJSON.filter(item => item.name.toLowerCase().startsWith(filter.toLowerCase()));
+    }
+
+    if (itemsJSON.length != 0) {
+        itemsJSON.forEach(product => {
             products.innerHTML += getHTMLProduct(product);
         }) 
     } else {
         products.innerHTML = "<div id=\"div-product-none\"><p>Nenhum resultado foi encontrado</p></div>"
     }
+}
+
+function filterByName() {
+    let textFilter = document.getElementById("input-search").value;
+    console.log(textFilter)
+    generateProducts(textFilter);
+}
+
+function navigateItemDetails(id) {
+    const params = {
+        id: id
+    };
+    const queryString = new URLSearchParams(params).toString();
+    window.location.href = 'View/details.html?'+queryString;
 }

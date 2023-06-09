@@ -10,3 +10,148 @@ body {
     min-height: 100vh;
     width: 100%;
 }
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100%;
+    padding-top: 3%;
+}
+
+#div-details {
+    display: flex;
+    width: 80%;
+}
+
+#div-img {
+    padding: 10px;
+    min-width: 450px;
+    max-width: 800px;
+}
+
+#div-img>img {
+    max-width: 100%;
+    height: 460px;
+}
+
+#div-details-infos {
+    width: 100%;
+    padding-left: 30px;
+    padding-top: 3%;
+}
+
+#div-name-share {
+    display: flex;
+    justify-content: space-between;
+}
+
+#p-name {
+    font-size: 40px;
+}
+
+.div-item-star {
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+#p-details-star-text {
+    font-size: 24px;
+    margin-top: 16px;
+    margin-left: 10px;
+}
+
+.div-product-price {
+    display: flex;
+    align-items: end;
+    width: 100%;
+    padding-top: 20px;
+}
+
+.product-price {
+    font-weight: bolder;
+    font-size: 24px;
+}
+
+.product-price-old {
+    text-decoration: line-through;
+    font-size: small;
+    font-size: 24px;
+    padding-left: 2px;
+}
+
+.product-price-old-message {
+    font-size: small;
+    font-size: 24px;
+}
+
+#p-n-players {
+    font-size: 32px;
+}
+
+#p-minimum-age {
+    font-size: 30px;
+}
+
+#p-brand {
+    font-size: 30px;
+}
+
+#div-comments {
+    width: 79%;
+}
+
+#p-comments-title {
+    font-size: 32px;
+}
+
+#div-comments-send {
+    border-radius: 8px;
+    background-color: #F0A853;
+}
+
+#p-comments-send {
+    font-size: 20px;
+    padding-left: 20px;
+    padding-top: 4px;
+}
+
+#div-comments-send-button {
+    display: flex;
+    justify-content: end;
+}
+
+#button-comments-send {
+    margin: 12px;
+    padding: 2px 3%;
+    border-style: none;
+    border-radius: 4px;
+}
+
+.div-comments-users {
+    margin-top: 16px;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: #F0A853;
+}
+
+.div-comments-user {
+    display: flex;
+    align-items: center;
+    min-height: 100%;
+    padding-right: 20px;
+}
+
+.img-comments-user {
+    margin-left: 6px;
+    margin-right: 10px;
+    max-height: 40px;
+    border-radius: 100%;
+}
+
+.p-comments-users {
+    font-size: 20px;
+    margin-left: 8px;
+    margin-top: 4px;
+}
