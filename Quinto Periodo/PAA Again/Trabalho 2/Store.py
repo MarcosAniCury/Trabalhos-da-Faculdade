@@ -13,3 +13,11 @@ class Store:
 
     def copy(self):
         return Store(self.index, self.x, self.y, self.delivery.copy())
+    
+    def __hash__(self):
+        return hash(self.index)
+
+    def __eq__(self, other):
+        if isinstance(other, Store):
+            return self.index == other.index
+        return False
