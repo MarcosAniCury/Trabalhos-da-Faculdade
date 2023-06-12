@@ -45,13 +45,13 @@ def animate_route(stores, k_max_units):
 
         store = stores['route'][frame]
 
-        # Add items to the truck payload
-        truck_payload += get_and_remove_first_items(
-            store.delivery, k_max_units - len(truck_payload))
-
         # Remove the items from the visited store
         if store.index in truck_payload:
             truck_payload.remove(store.index)
+
+        # Add items to the truck payload
+        truck_payload += get_and_remove_first_items(
+            store.delivery, k_max_units - len(truck_payload))
 
         plt.title(
             f"Iteração: {frame}\nCombustível usado: {fuel_used}\nNúmero de itens no caminhão: {truck_payload}")
