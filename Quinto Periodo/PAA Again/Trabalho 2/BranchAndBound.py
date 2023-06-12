@@ -47,11 +47,10 @@ def append_in_route(store, payload=0):
 
     routes[current_combination_index]["route"].append(store)
 
-
-def create_new_route(route_this_moment):
+# Finaliza a rota atual
+def finish_route():
     global current_combination_index, matrix, routes, lowest_route_consume_fuel
-
-    # Caso exista uma próxima rota quer dizer que ela foi cancelada logo, não deve inserir a matrix novamente
+    # Caso exista uma próxima rota quer dizer que ela foi cancelada logo, não deve inserir a matrix novamente pois a rota atual já foi finalizada
     if not current_combination_index + 1 in routes:
         # Finalizar rota atual com a matrix
         append_in_route(matrix)
@@ -64,6 +63,12 @@ def create_new_route(route_this_moment):
             lowest_route_consume_fuel["fuel_used"] = routes[current_combination_index]["fuel_used"]
         else:
             discarded_current_route()
+
+
+def create_new_route(route_this_moment):
+    global current_combination_index, matrix, routes, lowest_route_consume_fuel
+
+    finish_route()
 
     # Criar uma nova rota
     current_combination_index += 1
@@ -133,7 +138,19 @@ def generate_route(stores_iteration, initial_store, truck_next_store):
 
 def branch_and_bound(k_units_max):
     # Variaveis globais
-    global routes, stores, max_truck_payload, current_combination_index, matrix
+    global routes, stores, max_truck_payload, current_combination_index, matrix, lowest_route_consume_fuel
+
+    # Reset variáveis
+    routes = {}
+    stores = {}
+    max_truck_payload = 0
+    current_combination_index = -1
+    matrix = None
+    lowest_route_consume_fuel = {
+        "route_index": -1,
+        "fuel_used": sys.maxsize
+    }
+
     max_truck_payload = k_units_max
 
     # Ler arquivo e preencher stores
@@ -158,14 +175,7 @@ def branch_and_bound(k_units_max):
                              for key, store in stores.items()}
             # Inicia a função recursiva
             generate_route(copied_stores, store, [])
-            # Finaliza a rota com a matriz
-            append_in_route(matrix)
-            route_discarded = is_route_discarded()
-            if not route_discarded:
-                # Adicionar rota como a de menor custo, pois chegou até o final
-                lowest_route_consume_fuel["route_index"] = current_combination_index
-                lowest_route_consume_fuel["fuel_used"] = routes[current_combination_index]["fuel_used"]
-            else:
-                discarded_current_route()
+
+            finish_route()
 
     return routes

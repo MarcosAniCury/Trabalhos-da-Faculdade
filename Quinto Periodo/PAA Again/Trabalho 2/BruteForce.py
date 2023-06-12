@@ -95,6 +95,14 @@ def generate_route(stores_iteration, initial_store, truck_next_store):
 def brute_force(k_units_max):
     # Variaveis globais
     global routes, stores, max_truck_payload, current_combination_index, matrix
+
+    # Reset variáveis
+    routes = {}
+    stores = {}
+    max_truck_payload = 0
+    current_combination_index = -1
+    matrix = None
+
     max_truck_payload = k_units_max
 
     # Ler arquivo e preencher stores

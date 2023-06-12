@@ -3,6 +3,15 @@ import os
 import sys
 
 
+def get_and_remove_first_items(array, x):
+    first_items = []
+    if array:
+        for _ in range(min(x, len(array))):
+            first_item = array.pop(0)
+            first_items.append(first_item)
+    return first_items
+
+
 def read_arquive(arquive_name):
     stores = {}
     # Obtém o caminho absoluto do diretório do script em execução
@@ -30,10 +39,13 @@ def calc_fuel_used(distance, payload):
 
 
 def print_route(route, index):
-    print(f"Route:{index}")
+
+    route_text = f"Route:{index}\n\n"
     for store in route["route"]:
-        print(str(store))
-    print(f"Fuel used: {route['fuel_used']}")
+        route_text += f"{str(store)}\n"
+    route_text += f"Fuel used: {route['fuel_used']}"
+
+    return route_text
 
 
 def find_low_cost_route(routes):
@@ -53,9 +65,9 @@ def find_low_cost_route(routes):
             print("\n")
 
         print(f"Rota com menor custo:")
-        print_route(route_low_cost, index_route_low_cost)
+        return print_route(route_low_cost, index_route_low_cost), index_route_low_cost
     else:
-        print(routes)
+        return ""
 
 
 def copy_route(route):
