@@ -36,16 +36,40 @@ def create_new_route(route_this_moment):
     routes[current_combination_index] = copy_route(route_this_moment)
 
 
+def find_stores_have_to_visit(stores_iteration):
+    global current_combination_index, routes
+    stores_have_to_visit = []
+    have_visit = True
+    for store in stores_iteration.values():
+        # Se a loja ainda possuir entregas, deve visitar
+        if len(store.delivery) > 0:
+            stores_have_to_visit.append(store)
+            continue
+
+        # Verifica se a loja já foi visitada, caso não deve visitar
+        have_visit = True
+        for store_route in routes[current_combination_index]["route"]:
+            if store_route.index == store.index:
+                have_visit = False
+                break
+
+        if have_visit:
+            stores_have_to_visit.append(store)
+
+    return stores_have_to_visit
+
+
 def generate_route(stores_iteration, initial_store, truck_next_store):
     global routes, stores, max_truck_payload, current_combination_index
 
     # Adicionar loja atual na rota
     append_in_route(initial_store, len(truck_next_store))
 
+    # Para continuar a nova rota a partir da onde essa parou
+    route_this_moment = copy_route(routes[current_combination_index])
+
     # Verificar se a loja atual possui a lista "delivery"
     if len(initial_store.delivery) > 0 or len(truck_next_store) > 0:
-        route_this_moment = copy_route(routes[current_combination_index])
-
         # Achar proxima loja a ser visitada na rota
         for i in range(1, max_truck_payload+1):
             # Rota total a ser percorrida
@@ -85,11 +109,14 @@ def generate_route(stores_iteration, initial_store, truck_next_store):
                     generate_route(
                         copied_stores_iteration, copied_stores_iteration[index_target_store], new_truck_next_store)
     else:
-        # Encontrar outra loja que tenha a lista "delivery"
-        for store in stores_iteration.values():
-            if len(store.delivery) > 0:
-                generate_route(stores_iteration, store, [])
-                break
+        # Gerar combinacoes possíveis com todas as lojas faltantes
+        stores_have_to_visit = find_stores_have_to_visit(stores_iteration)
+        for index, target_store in enumerate(stores_have_to_visit):
+            # Gera variações da rota baseado em cada loop (caso não seja o primeiro loop)
+            if index != 0:
+                create_new_route(route_this_moment)
+
+            generate_route(stores_iteration, target_store, [])
 
 
 def brute_force(k_units_max):
@@ -113,21 +140,19 @@ def brute_force(k_units_max):
 
     # Inicia o loop para calculo de rota e consumo de combustivel
     for store in stores.values():
-        # A primeira loja só pode ser selecionada se tiver entregas
-        if len(store.delivery) > 0:
-            # Inicializa as variáveis
-            current_combination_index += 1
-            routes[current_combination_index] = {
-                "route": [],
-                "fuel_used": 0
-            }
-            # Inicializa a rota com a matriz
-            append_in_route(matrix)
-            copied_stores = {key: store.copy()
-                             for key, store in stores.items()}
-            # Inicia a função recursiva
-            generate_route(copied_stores, store, [])
-            # Finaliza a rota com a matriz
-            append_in_route(matrix)
+        # Inicializa as variáveis
+        current_combination_index += 1
+        routes[current_combination_index] = {
+            "route": [],
+            "fuel_used": 0
+        }
+        # Inicializa a rota com a matriz
+        append_in_route(matrix)
+        copied_stores = {key: store.copy()
+                         for key, store in stores.items()}
+        # Inicia a função recursiva
+        generate_route(copied_stores, store, [])
+        # Finaliza a rota com a matriz
+        append_in_route(matrix)
 
     return routes
