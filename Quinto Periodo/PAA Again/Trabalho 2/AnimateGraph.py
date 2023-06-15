@@ -70,6 +70,8 @@ def animate_route(stores, k_max_units):
     ani = animation.FuncAnimation(plt.gcf(), update, frames=len(
         stores['route']), interval=2000, repeat=False)
 
+    Animate = ani
+
     # Display the animation
     plt.show()
 

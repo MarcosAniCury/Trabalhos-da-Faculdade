@@ -62,9 +62,7 @@ def find_low_cost_route(routes):
                 route_low_cost = route
                 index_route_low_cost = index
             print_route(route, index)
-            print("\n")
 
-        print(f"Rota com menor custo:")
         return print_route(route_low_cost, index_route_low_cost), index_route_low_cost
     else:
         return ""
