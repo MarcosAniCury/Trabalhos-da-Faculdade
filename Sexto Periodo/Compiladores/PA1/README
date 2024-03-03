@@ -1,0 +1,20 @@
+Questions on PA1
+----------------
+
+# Alunos
+
+## Marcos Ani Cury Vinagre Silva - 684903
+
+1. Describe your implementation of the stack machine in a single short
+   paragraph.
+
+   Was a simple implementation using one abstract class for command and each single class for every command (first look seems dummy but for next features and scalability is a good option), I use DDD for the design pattern because it seemed appropriate to the project.
+
+
+2. List 3 things that you like about the Cool programming language.
+	First, it's a simple language, so it's kind of cool to implement everything with my own hands. Second, it only has four types and is strongly typed, which is important to me. Third, there is a lot of content on the internet, so it's easy to find examples.
+
+
+3. List 3 things you DON'T like about Cool.
+	First, some functionalities that help developers, such as returning two values (like in Python), are not present. Second, it could have a C-like syntax. Third, I can't find an extension for Visual Studio Code that assists developers well (there is one, but it doesn't work well), so I use Notepad (is not cool).
+

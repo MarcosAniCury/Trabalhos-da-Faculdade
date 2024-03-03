@@ -1,0 +1,1 @@
+class StackCommandInt inherit StackCommandAbstract {};
