@@ -1,7 +1,8 @@
+from ..utils.utils_pixels import set_pixel
+
 class Bresenham:
 
     def __init__(self):
-        # Initialize instance variables
         self.x = 0
         self.y = 0
         self.x_temp = 0
@@ -20,7 +21,7 @@ class Bresenham:
         self.x = x1
         self.y = y1
 
-        # set_pixel(x, y, cor)
+        set_pixel(x, y)
 
         if dx > dy:
             self.set_pixels_line(dy, dx)
@@ -40,4 +41,30 @@ class Bresenham:
             else:
                 p += c2
                 self.x += self.x_temp
-            # set_pixel(x, y, cor)
+            set_pixel(x, y)
+
+    def circle(self, xc, yc, raio):
+        self.x = 0
+        self.y = raio
+        p = 3 - 2 * raio
+
+        self.plot_symmetric_points(self.x, self.y, xc, yc)
+
+        while self.x < self.y:
+            if p < 0:
+                p += 4 * self.x + 6
+            else:
+                p += 4 * (self.x - self.y) + 10
+                self.y -= 1
+            self.x += 1
+            self.plot_symmetric_points(self.x, self.y, xc, yc)
+
+    def plot_symmetric_points(self, a, b, xc, yc):
+        set_pixel(a + xc, b + yc)
+        set_pixel(a + xc, -b + yc)
+        set_pixel(-a + xc, b + yc)
+        set_pixel(-a + xc, -b + yc)
+        set_pixel(b + xc, a + yc)
+        set_pixel(b + xc, -a + yc)
+        set_pixel(-b + xc, a + yc)
+        set_pixel(-b + xc, -a + yc)
