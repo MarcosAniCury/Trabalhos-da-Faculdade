@@ -3,7 +3,7 @@ from ..entities.point import Point
 class DDAService:
 
     @staticmethod
-    def DDA(start_point: Point, end_point: Point) -> None:
+    def DDA(start_point: Point, end_point: Point) -> list[Point]:
         float_start_point = start_point.float_point()
         float_end_point = end_point.float_point()
 
@@ -21,9 +21,11 @@ class DDAService:
         x = float_start_point.x
         y = float_start_point.y
 
-        # set_pixel(round(x), round(y))
+        points_collection = [Point(round(x), round(y))]
 
         for k in range(1, steps + 1):
             x += x_temp
             y += y_temp
-            # set_pixel(round(x), round(y))
+            points_collection.append(Point(round(x), round(y)))
+
+        return points_collection
