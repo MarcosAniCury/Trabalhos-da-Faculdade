@@ -1,11 +1,17 @@
 from typing import Callable
 from numbers import Number
-from point import Point
+from domain.entities.point import Point
+from domain.entities.shape import Shape
+from domain.services.circle_services import CircleServices
 
-class Circle:
+
+class Circle(Shape):
 
     def __init__(self) -> None:
         self.points_collection: list[Point] = []
 
-    def draw(self, algorithm: Callable[[Point, Number], list[Point]], point_center: Point, radius: Number) -> None:
+
+    def draw(self, algorithm: Callable[[Point, Number], list[Point]], point_center: Point, second_point: Point) -> list[Point]:
+        radius = CircleServices.calculate_radius(point_center, second_point)
         self.points_collection = algorithm(point_center, radius)
+        return self.points_collection

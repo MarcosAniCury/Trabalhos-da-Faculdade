@@ -1,4 +1,4 @@
-from ..entities.point import Point
+from domain.entities.point import Point
 
 class DDAService:
 
@@ -7,13 +7,13 @@ class DDAService:
         float_start_point = start_point.float_point()
         float_end_point = end_point.float_point()
 
-        dx = float_end_point.y - float_start_point.x
+        dx = float_end_point.x - float_start_point.x
         dy = float_end_point.y - float_start_point.y
 
         if abs(dx) > abs(dy):
-            steps = abs(dx)
+            steps = int(abs(dx))
         else:
-            steps = abs(dy)
+            steps = int(abs(dy))
 
         x_temp = dx / steps
         y_temp = dy / steps

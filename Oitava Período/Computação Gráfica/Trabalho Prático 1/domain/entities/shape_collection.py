@@ -1,6 +1,7 @@
 from typing import Union
-from circle import Circle
-from line import Line
+from domain.entities.circle import Circle
+from domain.entities.line import Line
+
 
 class ShapeCollection:
 
