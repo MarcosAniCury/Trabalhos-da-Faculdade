@@ -6,6 +6,8 @@ from application.services.shape_collection_service import ShapeCollectionService
 from domain.entities.shape_collection import ShapeCollection
 from domain.entities.point import Point
 
+#TODO: Need implement all clipping algorithm and geometric transformations (translação, rotação, escala e reflexões X/Y/XY com fatores de transformação informados pelo usuário (sem uso de valores fixos))
+
 class PaintApp:
 
     def __init__(self, root):
@@ -90,6 +92,7 @@ class PaintApp:
             now_point = Point(x,y)
             self.shape_collection.add_shape(shape)
             points_to_draw = shape.draw(algorithm, now_point, self.last_point)
+            #TODO: Bresenham bug in this point (line)
             for point in points_to_draw:
                 print(point)
                 self.canvas.create_rectangle(point.x, point.y, point.x, point.y, fill='black')
