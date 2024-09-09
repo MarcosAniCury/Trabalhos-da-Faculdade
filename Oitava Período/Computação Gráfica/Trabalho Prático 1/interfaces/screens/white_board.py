@@ -34,7 +34,7 @@ class PaintApp:
         self.menu_footer_dropdown()
         self.menu_footer_clear()
 
-        self.canvas.bind("<Button-1>", self.paint)
+        self.canvas.bind("<Button-1>", self.register_point)
 
     def menu_footer(self):
         self.btn_line = tk.Button(self.root, text="Line", command=self.select_line)
@@ -78,28 +78,32 @@ class PaintApp:
         self.n_point = 0
         self.last_point = None
 
-    def paint(self, event):
+    def register_point(self, event):
         self.n_point += 1
         x, y = event.x, event.y
+        now_point = Point(x, y)
         if self.n_point % 2 == 0:
             if not self.mode or not self.algorithm:
                 messagebox.showerror("Error", "Needed to select a shape or algorithm")
                 self.n_point -= 1
                 return
 
-            shape = self.shape_collection_service.choose_shape(self.mode)()
-            algorithm = self.shape_collection_service.choose_shape_algorithm(self.mode, self.algorithm)
-            now_point = Point(x,y)
-            self.shape_collection.add_shape(shape)
-            points_to_draw = shape.draw(algorithm, now_point, self.last_point)
-            #TODO: Bresenham bug in this point (line)
-            for point in points_to_draw:
-                print(point)
-                self.canvas.create_rectangle(point.x, point.y, point.x, point.y, fill='black')
+            points_to_draw = self.get_points(now_point)
+            self.paint_points(points_to_draw)
             PaintApp.delete_by_color(self.canvas, 'red')
         else:
             self.canvas.create_line(x, y, x + 1, y, fill='red')
-        self.last_point = Point(x, y)
+        self.last_point = now_point
+
+    def get_points(self, now_point):
+        shape = self.shape_collection_service.choose_shape(self.mode)()
+        algorithm = self.shape_collection_service.choose_shape_algorithm(self.mode, self.algorithm)
+        self.shape_collection.add_shape(shape)
+        return shape.draw(algorithm, self.last_point, now_point)
+
+    def paint_points(self, points_to_draw):
+        for point in points_to_draw:
+            self.canvas.create_rectangle(point.x, point.y, point.x, point.y, fill='black')
 
     @staticmethod
     def delete_by_color(canvas, color):

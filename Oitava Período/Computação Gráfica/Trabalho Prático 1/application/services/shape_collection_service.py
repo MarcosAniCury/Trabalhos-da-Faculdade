@@ -1,4 +1,6 @@
+from domain.entities.square_clip import SquareClip
 from domain.services.bresenham_service import BresenhamService
+from domain.services.colen_sutherland_service import ColenSutherlandService
 from domain.services.digital_differential_analyzer_service import DDAService
 from domain.entities.line import Line
 from domain.entities.circle import Circle
@@ -7,6 +9,7 @@ from domain.entities.shape import Shape
 class ShapeCollectionService:
 
     def __init__(self):
+        colen_sutherland_service = ColenSutherlandService()
         bresenham_service = BresenhamService()
         dda_service = DDAService()
 
@@ -16,13 +19,17 @@ class ShapeCollectionService:
                 'DDA': dda_service.DDA
             },
             'circle': {
-                'Bresenham': bresenham_service.circle,
+                'Bresenham': bresenham_service.circle                                                                             ,
+            },
+            'clipping': {
+                'ColenSutherland': colen_sutherland_service.clipping
             }
         }
 
         self.shapes = {
             'line': Line,
-            'circle': Circle
+            'circle': Circle,
+            'clipping': SquareClip,
         }
 
     def choose_shape(self, shape_type: str) -> Shape:
