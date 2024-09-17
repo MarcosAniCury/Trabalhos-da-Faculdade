@@ -10,3 +10,7 @@ class ShapeCollection:
 
     def add_shape(self, shape: Union[Line, Circle]) -> None:
         self.shapes.append(shape)
+
+    def execute_transformation(self, algorithm, params):
+        for shape in self.shapes:
+            shape.execute_geometry_transformation(algorithm, params)

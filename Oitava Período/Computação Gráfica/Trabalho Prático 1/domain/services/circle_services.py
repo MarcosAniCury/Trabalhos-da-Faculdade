@@ -1,5 +1,6 @@
 import math
-from ..entities.point import Point
+from domain.entities.point import Point
+
 
 class CircleServices:
 
