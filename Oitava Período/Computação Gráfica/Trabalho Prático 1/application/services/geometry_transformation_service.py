@@ -6,12 +6,6 @@ from domain.entities.point import Point
 
 class GeometryTransformation:
 
-    reflexion_type = {
-        'x': 0,
-        'y': 1,
-        'xy': 2
-    }
-
     def __init__(self):
         self.geometry_algorithm = {
             'translation': GeometryTransformation.translation,
@@ -61,17 +55,17 @@ class GeometryTransformation:
         return new_points
 
     @staticmethod
-    def reflexion(points, type):
+    def reflexion(points, reflexion_choose_type):
         x_center, y_center = GeometryTransformation.calc_center_point(points)
         new_points = []
         for p in points:
             new_x = p.x
             new_y = p.y
 
-            if type == reflexion_type.x or type == reflexion_type.xy:
+            if reflexion_choose_type == 'x' or reflexion_choose_type == 'xy':
                 new_x = 2 * x_center - p.x
-            if type == reflexion_type.y or type == reflexion_type.xy:
-                new_x = 2 * y_center - p.y
+            if reflexion_choose_type == 'y' or reflexion_choose_type == 'xy':
+                new_y = 2 * y_center - p.y
 
             new_points.append(Point(new_x, new_y))
         return new_points
