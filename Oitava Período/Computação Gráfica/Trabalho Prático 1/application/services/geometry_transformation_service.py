@@ -42,10 +42,10 @@ class GeometryTransformation:
         return points_scales
 
     @staticmethod
-    def rotation(points, params):
+    def rotation(points, ang):
         x_center, y_center = GeometryTransformation.calc_center_point(points)
 
-        ang_rad = math.radians(params[0])
+        ang_rad = math.radians(ang)
 
         new_points = []
         for p in points:

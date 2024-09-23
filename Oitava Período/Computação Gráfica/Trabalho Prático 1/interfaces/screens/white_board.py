@@ -15,7 +15,7 @@ class PaintApp:
         self.root.geometry("1024x768")
         self.root.configure(bg='black')
 
-        self.shape_collection = ShapeCollection()
+        self.shape_collection = ShapeCollection()  # Coleção de formas desenhadas
         self.shape_collection_service = ShapeCollectionService()
         self.geometry_transformation_service = GeometryTransformation()
         self.n_point = 0
@@ -23,6 +23,9 @@ class PaintApp:
         self.mode = None
         self.algorithm = None
         self.transformation_algorithm = None
+
+        self.shapes_list = []  # Lista para armazenar os shapes desenhados
+        self.current_selected_shape_index = None  # Para acompanhar o índice da forma selecionada
 
         self.algorithm_option = tk.StringVar(value="Select algorithm")
         self.transformation_option = tk.StringVar(value="Select transformation")
@@ -43,12 +46,13 @@ class PaintApp:
         self.canvas = tk.Canvas(self.canvas_frame, bg='white', width=600, height=600, bd=0, highlightthickness=0)
         self.canvas.pack()
 
+        # Lista de objetos
         self.object_list_label = tk.Label(self.left_frame, text="List Object", bg='black', fg='white', font=('Arial', 12))
         self.object_list_label.pack(pady=10)
 
         self.object_listbox = tk.Listbox(self.left_frame, bg='#222', fg='white', font=('Arial', 10))
         self.object_listbox.pack(pady=10, fill=tk.BOTH, expand=True)
-        self.object_listbox.bind("<<ListboxSelect>>", self.enable_clear_one)
+        self.object_listbox.bind("<<ListboxSelect>>", self.select_shape)
 
         self.clear_frame = tk.Frame(self.left_frame, bg='black')
         self.clear_frame.pack(pady=10)
@@ -185,15 +189,28 @@ class PaintApp:
         entry.insert(0, value)
 
     def clear_one(self):
-        selected = self.object_listbox.curselection()
-        if selected:
-            self.object_listbox.delete(selected)
+        if self.current_selected_shape_index is not None:
+            # Remover o shape selecionado do shape_collection e da lista visual
+            del self.shape_collection.shapes[self.current_selected_shape_index]
+            self.object_listbox.delete(self.current_selected_shape_index)
 
-    def enable_clear_one(self, event):
-        if self.object_listbox.curselection():
-            self.btn_clear_one.config(state=tk.NORMAL)
-        else:
+            # Redesenhar os shapes restantes
+            self.redraw_canvas()
+
             self.btn_clear_one.config(state=tk.DISABLED)
+            self.current_selected_shape_index = None
+
+    def select_shape(self, event):
+        selected_index = self.object_listbox.curselection()
+        if selected_index:
+            self.current_selected_shape_index = selected_index[0]
+            self.btn_clear_one.config(state=tk.NORMAL)
+
+    def redraw_canvas(self):
+        """Limpa o canvas e redesenha todas as formas no shape_collection"""
+        self.canvas.delete("all")
+        for shape in self.shape_collection.shapes:
+            self.paint_points(shape.points_collection)
 
     def select_line(self):
         self.mode = 'line'
@@ -233,6 +250,7 @@ class PaintApp:
         self.shape_collection = ShapeCollection()
         self.n_point = 0
         self.last_point = None
+        self.object_listbox.delete(0, tk.END)  # Limpa a lista de objetos
 
     def register_point(self, event):
         if not self.mode or not self.algorithm:
@@ -244,9 +262,9 @@ class PaintApp:
         self.n_point += 1
         if self.n_point % 2 == 0:
             points = self.get_shape_points(current_point)
-            self.paint_points(points)
-            self.canvas.create_line(self.last_point.x, self.last_point.y, self.last_point.x + 1, self.last_point.y, fill='red')
-            self.canvas.create_line(current_point.x, current_point.y, current_point.x + 1, current_point.y, fill='red')
+            shape_id = self.paint_points(points)
+            self.object_listbox.insert(tk.END,
+                                       f"{self.mode.capitalize()} {self.n_point // 2}")  # Adiciona à lista de objetos
         else:
             self.canvas.create_line(x, y, x + 1, y, fill='red')
         self.last_point = current_point
@@ -280,23 +298,14 @@ class PaintApp:
 
         if transformation_option == 'reflexion':
             params = menu_type
+        elif transformation_option == 'rotation':
+            params = int(param_1)
         else:
             params = [int(param_1), int(param_2)]
 
         self.shape_collection.execute_transformation(algorithm, params=params)
-        PaintApp.delete_by_color(self.canvas, 'black')
-        self.paint_all_shapes()
+        self.redraw_canvas()
 
-    def paint_all_shapes(self):
-        for shape in self.shape_collection.shapes:
-            self.paint_points(shape.points_collection)
-
-    @staticmethod
-    def delete_by_color(canvas, color):
-        for item in canvas.find_all():
-            item_color = canvas.itemcget(item, "fill")
-            if item_color == color:
-                canvas.delete(item)
 
 if __name__ == "__main__":
     root = tk.Tk()
